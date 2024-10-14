@@ -1,0 +1,42 @@
+name: Self-Hosted Runner Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_url:
+        description: OTA URL
+        required: true
+        type: string
+      OS:
+        description: OS
+        required: true
+        type: string
+
+        
+  workflow_call:
+    inputs:
+      build_url:
+        description: OTA URL
+        required: true
+        type: string
+      OS:
+        description: OS
+        required: true
+        type: string
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run a simple test
+      env: 
+        build_url: ${{inputs.build_url}}
+        OS: ${{inputs.OS}}
+      run: |
+        npm ci
+        npm run test:${{inputs.OS}}
