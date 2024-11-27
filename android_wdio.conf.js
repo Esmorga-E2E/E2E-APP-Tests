@@ -192,7 +192,9 @@ export const config = {
 //
 //    },
     onPrepare: function (config, capabilities) {
-        const apkUrl = 'https://otashare.mobgen.com/build/download/kz0ashtgc48e';  // URL del APK
+        build_url
+        const apkUrl = 'process.env.build_url';
+//        https://otashare.mobgen.com/build/download/kz0ashtgc48e';  // URL del APK
         const apkPath = './esmorga.apk';
         try {
             execSync('adb uninstall cmm.apps.esmorga');
