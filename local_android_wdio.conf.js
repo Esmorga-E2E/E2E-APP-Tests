@@ -71,7 +71,10 @@ export const config = {
         "appium:deviceName": "emulator-5554",
         "appium:automationName": "UiAutomator2",
         "appium:appPackage" : "cmm.apps.esmorga",
-        "appium:appActivity": ".view.MainActivity"
+        "appium:appActivity": ".view.MainActivity",
+        "appium:app":process.env.build_url.replace("https://otashare.mobgen.com/build/", "https://otashare.mobgen.com/build/download/").replace("/esmorga-qa",""),
+        "appium:fullReset": "true",
+
     }],
 
     //
@@ -263,6 +266,7 @@ export const config = {
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
      * @param {object}                 context  Cucumber World object
      */
+    /*
     beforeScenario: function (world, context) {
         
         try {
@@ -273,6 +277,7 @@ export const config = {
             console.error(`Error al limpiar los datos de la aplicación: ${error}`);
         }
     },
+    */
     /**
      *
      * Runs before a Cucumber Step.

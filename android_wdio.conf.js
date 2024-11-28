@@ -18,9 +18,16 @@ export const config = {
     // according to your user and key information. However, if you are using a private Selenium
     // backend you should define the host address, port, and path here.
     //
+    
     hostname: 'AppiumNodeI1.local',
     port: 4444,
     path: '/',
+    
+    /*    
+    hostname: '127.0.0.1',
+    port: 4723,
+    path: '/',
+    */
     //
     // ==================
     // Specify Test Files
@@ -71,7 +78,10 @@ export const config = {
         "appium:deviceName": "emulator-5554",
         "appium:automationName": "UiAutomator2",
         "appium:appPackage" : "cmm.apps.esmorga",
-        "appium:appActivity": ".view.MainActivity"
+        "appium:appActivity": ".view.MainActivity",
+        "appium:app":process.env.build_url.replace("https://otashare.mobgen.com/build/", "https://otashare.mobgen.com/build/download/").replace("/esmorga-qa",""),
+        "appium:fullReset": "true",
+
     }],
 
     //
@@ -191,10 +201,10 @@ export const config = {
 //    onPrepare: function (config, capabilities) {
 //
 //    },
+/*
     onPrepare: function (config, capabilities) {
-        build_url
-        const apkUrl = 'process.env.build_url';
-//        https://otashare.mobgen.com/build/download/kz0ashtgc48e';  // URL del APK
+//        const apkUrl = 'https://otashare.mobgen.com/build/download/kz0ashtgc48e';  // URL del APK
+        const apkUrl = process.env.build_url;  // URL del APK
         const apkPath = './esmorga.apk';
         try {
             execSync('adb uninstall cmm.apps.esmorga');
@@ -204,7 +214,7 @@ export const config = {
         execSync(`curl -o ${apkPath} ${apkUrl}`);
         execSync(`adb install -r ${apkPath}`); 
     },
-
+*/
     /**
      * Gets executed before a worker process is spawned and can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
