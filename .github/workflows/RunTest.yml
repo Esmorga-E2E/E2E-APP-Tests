@@ -26,7 +26,7 @@ on:
 
 
 jobs:
-  build:
+  Test-E2E:
     runs-on: self-hosted
 
     steps:
