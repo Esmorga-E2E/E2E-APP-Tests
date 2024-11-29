@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';  // Importar execSync
 import fs from 'fs';  // Importar fs si lo necesitas
 const appPackage = 'com.mobilestudio.esmorga'; 
+const appPath = '/Users/pablo.canarte.sol/Library/Developer/Xcode/DerivedData/EsmorgaiOS-bfsmluudghcdipezhjhphgmjzaeq/Build/Products/Debug-iphonesimulator/EsmorgaiOS.app'; 
 export const config = {
     //
     // ====================
@@ -80,12 +81,13 @@ export const config = {
         "platformName": "iOS",
         "appium:platformVersion":"17.0",
         "appium:automationName": "XCUITest",
-        "appium:app": "/Users/pablo.canarte.sol/Library/Developer/Xcode/DerivedData/EsmorgaiOS-bfsmluudghcdipezhjhphgmjzaeq/Build/Products/Debug-iphonesimulator/EsmorgaiOS.app",       
+        "appium:app": appPath,       
         "appium:bundleId": "com.mobilestudio.esmorga",
         "appium:udid": "C4278E69-A708-494A-8073-5A0C8B42D9C5",
         "appium:deviceName": "iPhone SE (3rd generation)",
-          "appium:usePreinstalledWDA": "true",
-  "appium:prebuiltWDAPath": "/Users/pablo.canarte.sol/node_modules/appium-xcuitest-driver/node_modules/Build/Products/Debug-iphonesimulator/WebDriverAgentRunner-Runner.app"
+        "appium:usePreinstalledWDA": "true",
+        "appium:prebuiltWDAPath": process.env.prebuiltWDAPath,
+        "appium:noReset":"false"
     }],
 ///Users/mobgen/EsmorgaiOS.app",
 //        "appium:fullReset": "true",
@@ -284,8 +286,11 @@ export const config = {
             // Terminar la app
             await driver.terminateApp(appPackage);
             console.log(`Aplicación ${appPackage} terminada.`);
+            await driver.removeApp(appPackage);
+            console.log(`Aplicación ${appPackage} desinstalada.`);
     
             // Activar la app nuevamente
+            await driver.installApp(appPath);
             await driver.activateApp(appPackage);
             console.log(`Aplicación ${appPackage} reiniciada después del test.`);
         } catch (err) {
