@@ -15,6 +15,7 @@
   "scripts": {
     "test":"npm run test:android",
     "test:android": "wdio run ./android_wdio.conf.js",
-    "test:local:android": "wdio run ./local_android_wdio.conf.js"
+    "test:local:android": "wdio run ./local_android_wdio.conf.js",
+    "test:local:ios": "wdio run ./local_ios_wdio.conf.js"
   }
 }

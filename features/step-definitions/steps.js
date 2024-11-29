@@ -20,7 +20,7 @@ const screens = {
 }
 const status={}
 Given('opened app', async () => {
-    await driver.activateApp('cmm.apps.esmorga');
+//    await driver.activateApp();
     await browser.pause(1000);
 });
 

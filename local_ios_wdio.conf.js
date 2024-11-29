@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';  // Importar execSync
 import fs from 'fs';  // Importar fs si lo necesitas
-const appPackage = 'cmm.apps.esmorga'; 
+const appPackage = 'com.mobilestudio.esmorga'; 
 export const config = {
     //
     // ====================
@@ -18,9 +18,16 @@ export const config = {
     // according to your user and key information. However, if you are using a private Selenium
     // backend you should define the host address, port, and path here.
     //
+    
     hostname: '127.0.0.1',
     port: 4723,
     path: '/',
+    
+   /*
+    hostname: 'AppiumNodeI1.local',
+    port: 4444,
+    path: '/',
+*/
     //
     // ==================
     // Specify Test Files
@@ -65,19 +72,24 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
+    /*        "appium:udid": "BA7D7066-3523-4DDC-82A6-2EDB8BDC29DD",
+        "appium:deviceName": "iPhone 14 Pro",*/
+
     capabilities: [{
         // capabilities for local Appium web tests on an Android Emulator
-        "platformName": "Android",
-        "appium:deviceName": "emulator-5554",
-        "appium:automationName": "UiAutomator2",
-        "appium:appPackage" : "cmm.apps.esmorga",
-        "appium:appActivity": ".view.MainActivity",
-        "appium:app":process.env.build_url.replace("https://otashare.mobgen.com/build/", "https://otashare.mobgen.com/build/download/").replace("/esmorga-qa",""),
-        "appium:fullReset": "true",
-        "appium:noReset":"false",
-
+        "platformName": "iOS",
+        "appium:platformVersion":"17.0",
+        "appium:automationName": "XCUITest",
+        "appium:app": "/Users/pablo.canarte.sol/Library/Developer/Xcode/DerivedData/EsmorgaiOS-bfsmluudghcdipezhjhphgmjzaeq/Build/Products/Debug-iphonesimulator/EsmorgaiOS.app",       
+        "appium:bundleId": "com.mobilestudio.esmorga",
+        "appium:udid": "C4278E69-A708-494A-8073-5A0C8B42D9C5",
+        "appium:deviceName": "iPhone SE (3rd generation)",
+          "appium:usePreinstalledWDA": "true",
+  "appium:prebuiltWDAPath": "/Users/pablo.canarte.sol/node_modules/appium-xcuitest-driver/node_modules/Build/Products/Debug-iphonesimulator/WebDriverAgentRunner-Runner.app"
     }],
-
+///Users/mobgen/EsmorgaiOS.app",
+//        "appium:fullReset": "true",
+//        "appium:noReset":"false",
     //
     // ===================
     // Test Configurations
@@ -267,7 +279,6 @@ export const config = {
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
      * @param {object}                 context  Cucumber World object
      */
-    
     beforeScenario: async function (world, context) {
         try {
             // Terminar la app
@@ -280,6 +291,7 @@ export const config = {
         } catch (err) {
             console.error(`Error al reiniciar la aplicación: ${err}`);
         }
+    }
 /*        
         try {
             // Limpiar los datos de la app usando adb shell
@@ -288,9 +300,9 @@ export const config = {
         } catch (error) {
             console.error(`Error al limpiar los datos de la aplicación: ${error}`);
         }
-*/
-    },
 
+    },
+*/
     /**
      *
      * Runs before a Cucumber Step.

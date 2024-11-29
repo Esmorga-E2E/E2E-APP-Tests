@@ -81,6 +81,7 @@ export const config = {
         "appium:appActivity": ".view.MainActivity",
         "appium:app":process.env.build_url.replace("https://otashare.mobgen.com/build/", "https://otashare.mobgen.com/build/download/").replace("/esmorga-qa",""),
         "appium:fullReset": "true",
+        "appium:noReset":"false",
 
     }],
 
@@ -275,15 +276,18 @@ export const config = {
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
      * @param {object}                 context  Cucumber World object
      */
-    beforeScenario: function (world, context) {
+    beforeScenario: async function (world, context) {
+            try {
+                // Terminar la app
+                await driver.terminateApp(appPackage);
+                console.log(`Aplicación ${appPackage} terminada.`);
         
-        try {
-            // Limpiar los datos de la app usando adb shell
-            execSync(`adb shell pm clear ${appPackage}`);
-            console.log(`Datos de la aplicación ${appPackage} limpiados.`);
-        } catch (error) {
-            console.error(`Error al limpiar los datos de la aplicación: ${error}`);
-        }
+                // Activar la app nuevamente
+                await driver.activateApp(appPackage);
+                console.log(`Aplicación ${appPackage} reiniciada después del test.`);
+            } catch (err) {
+                console.error(`Error al reiniciar la aplicación: ${err}`);
+            }
     },
     /**
      *
