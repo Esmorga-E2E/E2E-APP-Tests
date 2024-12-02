@@ -1,4 +1,6 @@
-# E2E-Tests
+# Esmorga E2E-Tests
+This project is tested with BrowserStack
+
 Andriod APP
 https://github.com/cmm-apps-android/EsmorgaAndroid
 iOS APP
