@@ -27,9 +27,9 @@ capabilities: [{
 }],
 commonCapabilities: {
   'bstack:options': {
-    projectName: "BrowserStack Samples",
-    buildName: 'browserstack build',
-    sessionName: 'BStack parallel webdriverio-appium',
+    projectName: "Esmorga Android",
+    buildName: '1',
+    sessionName: 'Pipe Test',
     debug: true,
     networkLogs: true,
     appiumVersion: '2.0',
