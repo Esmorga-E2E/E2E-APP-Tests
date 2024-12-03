@@ -39,9 +39,11 @@ jobs:
       id: prepare_app
       run: |
         if [ "${{inputs.OS}}" == "android" ] 
-        then export extension=apk
-        else export extension=ipa
+        then url=$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//'' )"
+        else url=$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//'' )"
         fi
+
+        
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
           -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')"
@@ -50,6 +52,7 @@ jobs:
         exit 1
         fi
         echo "result=$result">> $GITHUB_OUTPUT
+
 
 
     - name: Run a simple test
