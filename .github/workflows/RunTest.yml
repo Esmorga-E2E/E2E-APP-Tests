@@ -45,7 +45,7 @@ jobs:
         curl ${{inputs.build_url}} -o app.$extension
         echo "result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')" >> $GITHUB_OUTPUT
+          -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')" >> $GITHUB_OUTPUT
 
 
 
