@@ -1,5 +1,4 @@
 Feature: MOB_Feature
-
 	Scenario: TC - Event manager MVP - Check event list and event details for a certain event
 		Given opened app
 		Then wellcome screen is shown
@@ -17,3 +16,4 @@ Feature: MOB_Feature
 		And write Password!4 on field password
 		And tap on primary button
 		Then events list screen is shown
+

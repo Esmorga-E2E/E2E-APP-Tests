@@ -32,12 +32,27 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Run a simple test
+    - name: Prepare APK or APP
       env: 
         build_url: ${{inputs.build_url}}
         OS: ${{inputs.OS}}
-        
+      id: prepare_app
+      run: |
+        if [ ${{inputs.OS}} == 'Android' ] 
+        then export extension=apk
+        else export extension=ipa
+        fi
+        curl ${{inputs.build_url}} -o app.$extension
+        echo "result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
+          -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/app" \
+          -F "file=@./app.$extension"| jq -r '.app_url')" >> $GITHUB_OUTPUT
+
+
+
+    - name: Run a simple test
+      env: 
+        build_url: ${{ steps.prepare_app.outputs.result }}
+        OS: ${{inputs.OS}}
       run: |
         npm ci
-        npm run test:${{inputs.OS}}
+        npm run test:bs:${{inputs.OS}}

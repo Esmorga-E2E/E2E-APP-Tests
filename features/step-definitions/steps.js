@@ -21,6 +21,9 @@ const screens = {
 const status={}
 Given('opened app', async () => {
 //    await driver.activateApp();
+    driver.closeApp();
+    await browser.pause(1000);
+    driver.launchApp();
     await browser.pause(1000);
 });
 
@@ -28,6 +31,7 @@ When(/^tap on (.*)$/, async (where) => {
     const whereTapOn = screens[status.screen].get_where_tap_on(where)
     const findWhereTapOn = await $(whereTapOn);
     await findWhereTapOn.click();
+    
 
 });
 
@@ -38,6 +42,7 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
+    await browser.pause(1000);
     status.screen=screen
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
