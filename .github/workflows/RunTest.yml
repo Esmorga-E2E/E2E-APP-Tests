@@ -39,8 +39,8 @@ jobs:
       id: prepare_app
       run: |
         if [ "${{inputs.OS}}" == "android" ] 
-        then url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//'' )"
-        else url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//'' )"
+        then url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
+        else url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
         fi
 
         
