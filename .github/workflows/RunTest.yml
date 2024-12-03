@@ -38,7 +38,7 @@ jobs:
         OS: ${{inputs.OS}}
       id: prepare_url
       run: |
-        if [ "${{inputs.OS}}" -eq "android" ] 
+        if [ "${{inputs.OS}}" = "android" ] 
         then url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
         else url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
         fi
@@ -52,7 +52,7 @@ jobs:
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
           -F "url=${{ steps.prepare_url.outputs.result }}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')
-        if [ "$result" -eq "" ]
+        if [ "$result" = "" ]
         then
         exit 1
         fi
