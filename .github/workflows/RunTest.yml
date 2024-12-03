@@ -42,11 +42,14 @@ jobs:
         then export extension=apk
         else export extension=ipa
         fi
-        curl ${{inputs.build_url}} -o app.$extension
-        echo "result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
+        result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')" >> $GITHUB_OUTPUT
-
+          -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')"
+        if [ "$result" == "" ]
+        then
+        exit 1
+        fi
+        echo "result=$result">> $GITHUB_OUTPUT
 
 
     - name: Run a simple test
