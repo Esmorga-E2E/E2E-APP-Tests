@@ -45,7 +45,7 @@ jobs:
         curl ${{inputs.build_url}} -o app.$extension
         echo "result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/app" \
-          -F "file=@./app.$extension"| jq -r '.app_url')" >> $GITHUB_OUTPUT
+          -F "file=@./app.$extension"| | grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')" >> $GITHUB_OUTPUT
 
 
 
