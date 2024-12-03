@@ -36,20 +36,28 @@ jobs:
       env: 
         build_url: ${{inputs.build_url}}
         OS: ${{inputs.OS}}
+      id: prepare_url
+      run: |
+        if [ "${{inputs.OS}}" = "android" ] 
+        then url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
+        else url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
+        fi
+        echo "result=$url">> $GITHUB_OUTPUT
+    - name: Prepare APK or APP
+      env: 
+        build_url: ${{inputs.build_url}}
+        OS: ${{inputs.OS}}
       id: prepare_app
       run: |
-        if [ "${{inputs.OS}}" == "android" ] 
-        then export extension=apk
-        else export extension=ipa
-        fi
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')"
-        if [ "$result" == "" ]
+          -F "url=${{ steps.prepare_url.outputs.result }}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')
+        if [ "$result" = "" ]
         then
         exit 1
         fi
         echo "result=$result">> $GITHUB_OUTPUT
+
 
 
     - name: Run a simple test
