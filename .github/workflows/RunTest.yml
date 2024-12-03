@@ -38,7 +38,7 @@ jobs:
         OS: ${{inputs.OS}}
       id: prepare_app
       run: |
-        if [ ${{inputs.OS}} == 'Android' ] 
+        if [ "${{inputs.OS}}"" == "Android" ] 
         then export extension=apk
         else export extension=ipa
         fi
