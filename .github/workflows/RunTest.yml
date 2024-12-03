@@ -46,7 +46,7 @@ jobs:
         
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
           -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F "url=${{inputs.build_url}}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')"
+          -F "url=$url"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')"
         if [ "$result" == "" ]
         then
         exit 1
