@@ -54,5 +54,5 @@ jobs:
         build_url: ${{ steps.prepare_app.outputs.result }}
         OS: ${{inputs.OS}}
       run: |
-        npm ci
+        npm i
         npm run test:bs:${{inputs.OS}}
