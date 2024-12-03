@@ -74,6 +74,7 @@ export const config = {
         "appium:appActivity": ".view.MainActivity",
         "appium:app":process.env.build_url.replace("https://otashare.mobgen.com/build/", "https://otashare.mobgen.com/build/download/").replace("/esmorga-qa",""),
         "appium:fullReset": "true",
+        "appium:noReset":"false",
 
     }],
 
@@ -194,7 +195,7 @@ export const config = {
 //    onPrepare: function (config, capabilities) {
 //
 //    },
-    onPrepare: function (config, capabilities) {
+/*    onPrepare: function (config, capabilities) {
         const apkUrl = 'https://otashare.mobgen.com/build/download/kz0ashtgc48e';  // URL del APK
         const apkPath = './esmorga.apk';
         try {
@@ -205,7 +206,7 @@ export const config = {
         execSync(`curl -o ${apkPath} ${apkUrl}`);
         execSync(`adb install -r ${apkPath}`); 
     },
-
+*/
     /**
      * Gets executed before a worker process is spawned and can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -266,9 +267,20 @@ export const config = {
      * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
      * @param {object}                 context  Cucumber World object
      */
-    /*
-    beforeScenario: function (world, context) {
-        
+    
+    beforeScenario: async function (world, context) {
+        try {
+            // Terminar la app
+            await driver.terminateApp(appPackage);
+            console.log(`Aplicación ${appPackage} terminada.`);
+    
+            // Activar la app nuevamente
+            await driver.activateApp(appPackage);
+            console.log(`Aplicación ${appPackage} reiniciada después del test.`);
+        } catch (err) {
+            console.error(`Error al reiniciar la aplicación: ${err}`);
+        }
+/*        
         try {
             // Limpiar los datos de la app usando adb shell
             execSync(`adb shell pm clear ${appPackage}`);
@@ -276,8 +288,9 @@ export const config = {
         } catch (error) {
             console.error(`Error al limpiar los datos de la aplicación: ${error}`);
         }
+*/
     },
-    */
+
     /**
      *
      * Runs before a Cucumber Step.
