@@ -6,6 +6,7 @@ Feature: MOB_Feature
 		Then events list screen is shown
 		When tap on event
 		Then event details screen is shown
+		
 
    	Scenario: TC - Login MVP - Login
 		Given opened app
@@ -16,4 +17,10 @@ Feature: MOB_Feature
 		And write Password!4 on field password
 		And tap on primary button
 		Then events list screen is shown
-
+		When tap on event
+		Then event details screen is shown
+		When tap on back
+		Then events list screen is shown
+		When tap on event
+		Then event details screen is shown
+		And tap on primary button

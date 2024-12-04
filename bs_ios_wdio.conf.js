@@ -23,6 +23,8 @@ services: [
     },
   ]
 ],
+
+
 capabilities: [{
   'bstack:options': {
     deviceName: 'iPhone 1[3456]',
