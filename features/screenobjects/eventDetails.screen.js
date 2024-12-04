@@ -1,4 +1,6 @@
-export default class EventDetails {
+import Basics from './basic.screen'
+export default class EventDetails extends Basics {
+
     get_what_to_seek () {
         console.log(browser.capabilities.platformName)
         switch (browser.capabilities.platformName) {
@@ -13,15 +15,8 @@ export default class EventDetails {
     }
     get_where_tap_on(where){
         switch(where){
-            case 'back':
-                    switch (browser.capabilities.platformName) {
-                        case "Android":
-                        case "android":
-                            return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button'
-                        case "iOS":
-                        case "ios":
-                            return '//XCUIElementTypeOther[@name="Izquierda"]'
-                    }
+            default:
+                return super.get_where_tap_on(where)
             }
 
     }

@@ -14,22 +14,25 @@ services: [
     'browserstack',
     {
       app: process.env.BROWSERSTACK_APP_ID,
-      browserstackLocal: true
+      browserstackLocal: true,
+      testObservabilityOptions: {
+        projectName: "Esmorga Android",
+        buildName: '1',
+        sessionName: 'Pipe Test',
+      }
     },
   ]
 ],
 capabilities: [{
   'bstack:options': {
-    deviceName: 'Google Pixel 7',
-    platformVersion: '13.0',
+    deviceName: 'Samsung .*',
+    platformVersion: '1[12345].0',
     platformName: 'android',
   },
 }],
 commonCapabilities: {
   'bstack:options': {
-    projectName: "BrowserStack Samples",
-    buildName: 'browserstack build',
-    sessionName: 'BStack parallel webdriverio-appium',
+ 
     debug: true,
     networkLogs: true,
     appiumVersion: '2.0',

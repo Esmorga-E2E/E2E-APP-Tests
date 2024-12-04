@@ -14,31 +14,37 @@ services: [
     'browserstack',
     {
       app: process.env.BROWSERSTACK_APP_ID,
-      browserstackLocal: true
+      browserstackLocal: true,
+      testObservabilityOptions: {
+        projectName: "Esmorga iOS",
+        buildName: '1',
+        sessionName: 'Pipe Test',
+      }
     },
   ]
 ],
+
+
 capabilities: [{
   'bstack:options': {
-    deviceName: 'iPhone 16 Pro',
-    platformVersion: '18',
+    deviceName: 'iPhone 1[3456]',
+    platformVersion: '1[678]',
     platformName: 'ios',
   },
 }],
 commonCapabilities: {
   'bstack:options': {
-    projectName: "BrowserStack Samples",
-    buildName: 'browserstack build',
-    sessionName: 'BStack parallel webdriverio-appium',
     debug: true,
     networkLogs: true,
-    resetApp: true,
-    fullReset: true,
-    noReset: false,
+
     appiumVersion: '2.0',
   }
 },
-
+/*
+resetApp: true,
+fullReset: true,
+noReset: false,
+*/
 maxInstances: 10,
 exclude: [
 ],
