@@ -131,3 +131,4 @@ dist
 esmorga.apk
 esmorga.ipa
 .tmp/*
+browserstack.err
