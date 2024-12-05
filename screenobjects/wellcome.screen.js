@@ -1,23 +1,19 @@
 import Basics from './basic.screen'
-export default class EventDetails extends Basics {
-
+export default class Wellcome extends Basics {
     get_what_to_seek () {
-        console.log(browser.capabilities.platformName)
         switch (browser.capabilities.platformName) {
             case "Android":
             case "android":
-                return '//android.widget.TextView[@text="Event details"]'
+                return '//android.widget.ImageView[@content-desc="App logo"]'
             case "iOS":
             case "ios":
-                return '//XCUIElementTypeStaticText[@name="Detalles del evento"]'
+                return '//XCUIElementTypeImage[@name="SplashView.welcomeScreen"]'
         }
-
     }
     get_where_tap_on(where){
         switch(where){
             default:
                 return super.get_where_tap_on(where)
             }
-
     }
 }

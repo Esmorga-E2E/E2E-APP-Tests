@@ -15,12 +15,12 @@
     "wdio-cucumberjs-json-reporter": "^6.0.1"
   },
   "scripts": {
-    "test": "npm run test:android",
-    "test:android": "wdio run ./android_wdio.conf.js",
-    "test:local:android": "wdio run ./local_android_wdio.conf.js",
-    "test:local:ios": "wdio run ./local_ios_wdio.conf.js",
-    "test:bs:ios": "wdio run ./bs_ios_wdio.conf.js",
-    "test:bs:android": "wdio run ./bs_android_wdio.conf.js"
+    "test": "npm run test:local:android & npm run test:local:ios",
+
+    "test:local:ios": "wdio run ./wdio_configs/local_ios_wdio.conf.js",
+    "test:bs:ios": "wdio run ./wdio_configs/bs_ios_wdio.conf.js",
+    "test:local:android": "wdio run ./wdio_configs/local_android_wdio.conf.js",
+    "test:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js"
 
   }
 }
