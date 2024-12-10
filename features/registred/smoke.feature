@@ -1,5 +1,5 @@
 Feature: Test registred
-	@finished
+	@ios @login
     Scenario: TC - Login MVP - Login
 		Given just opened app
 		Then wellcome screen is shown
@@ -7,6 +7,16 @@ Feature: Test registred
 		Then login screen is shown
 		When write esmorga.test.04@yopmail.com on field email
 		And write Password!4 on field password
+		And tap on primary button
+		Then events list screen is shown
+	@android @login
+    Scenario: TC - Login MVP - Login
+		Given just opened app
+		Then wellcome screen is shown
+		When tap on primary button
+		Then login screen is shown
+		When write esmorga.test.05@yopmail.com on field email
+		And write Password!5 on field password
 		And tap on primary button
 		Then events list screen is shown
 
@@ -19,23 +29,23 @@ Feature: Test registred
 		When tap on back
 		Then events list screen is shown
 
-	@finished
-	Scenario: TC - Leave an Event
+	
+	Scenario: TC - Quit an Event
 		Given just opened app
 		And events list screen is shown
 		When tap on event
 		Then event details screen is shown
 		And tap on primary button
-		Then An snackbar is shown
+		Then quit snackbar is shown
 
-	@finished	
+	
 	Scenario: TC - Join an Event
 		Given just opened app
 		And events list screen is shown
 		When tap on event
 		Then event details screen is shown
 		And tap on primary button
-		Then Join snackbar is shown
+		Then joined snackbar is shown
 
 	@finished
 	Scenario: TC - Navigation Bar
