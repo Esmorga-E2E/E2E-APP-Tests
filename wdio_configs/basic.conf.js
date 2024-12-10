@@ -7,6 +7,7 @@ export const basic_config = {
 //    logLevel: 'info',
     logLevel: 'error',
     bail: 0,
+//    bail: 0,
     coloredLogs: true,
     screenshotPath: './errorShots/',
     baseUrl: '',

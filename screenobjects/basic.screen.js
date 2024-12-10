@@ -1,25 +1,36 @@
 export default class Basics {
     get_what_snackbar_seek(snackbar){
         switch(snackbar){
-            case 'Joined':
+            case 'joined':
                 switch (browser.capabilities.platformName) {
                     case "Android":
                     case "android":
-                        return '//android.widget.TextView[@text="Bravo! You have joined the event!"]'
+                        return "//android.widget.TextView[@text='Bravo! You have joined the event!']"
 
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeStaticText[@name="Join Event Tapped"]'
+                        return 'accessibility id:Bravo! Te has unido al evento!'
                 }
+            case 'quit':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return "//android.widget.TextView[@text='Booooo! quitter!']"
+
+                    case "iOS":
+                    case "ios":
+                        return 'accessibility id:Buuuuu! Rajao!'
+                }
+            
             default:
                 switch (browser.capabilities.platformName) {
                     case "Android":
                     case "android":
-                        return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View'
+                        return '?'
 
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeStaticText[@name="Join Event Tapped"]'
+                        return '?'
                 }
             
         }
