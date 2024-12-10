@@ -27,4 +27,5 @@
     "test:local:on_going:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and not @finished'",
     "test:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'"
   }
+
 }
