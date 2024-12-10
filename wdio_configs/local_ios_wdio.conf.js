@@ -15,7 +15,6 @@ export const config = { ...basic_config,
         "appium:deviceName": "iPhone SE (3rd generation)",
         "appium:usePreinstalledWDA": "true",
         "appium:prebuiltWDAPath": "/Users/pablo.canarte.sol/node_modules/appium-xcuitest-driver/node_modules/Build/Products/Debug-iphonesimulator/WebDriverAgentRunner-Runner.app",
-
         "appium:noReset":"false"
     }],
 

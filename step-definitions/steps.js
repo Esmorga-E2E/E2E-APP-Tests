@@ -22,7 +22,7 @@ const screens = {
     login:login_screen
 }
 const status={}
-Given('opened app', async () => {
+Given('just opened app', async () => {
     console.log("Open APP")
     await driver.pause(1000);
     
@@ -65,7 +65,6 @@ Then(/^(.*) screen is shown$/, async (screen) => {
     console.log(screen+" screen is show")
     await browser.pause(500);
     status.screen=screen
-
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
     await expect(find_what_to_seek).toBeDisplayed();
@@ -78,4 +77,22 @@ Then(/^(.*) snackbar is shown$/, async (snackbar) => {
     await expect(find_what_to_seek).toBeDisplayed();
 
 });
+Then ('get page', async () => {
+//    const page= await     driver.getPageSource()
+//    console.log(page)
+const elementos = await $$('//*');
 
+// Filtrar los que tienen accessibilityId
+const elementosConAccessibilityId = [];
+for (const elemento of elementos) {
+    const accessibilityId = await elemento.getAttribute('content-desc');
+    if (accessibilityId) {
+        elementosConAccessibilityId.push({ elemento, accessibilityId });
+    }
+}
+
+// Mostrar los Accessibility IDs encontrados
+elementosConAccessibilityId.forEach((item) => {
+    console.log(`Elemento: ${item.elemento}, AccessibilityId: ${item.accessibilityId}`);
+});
+});

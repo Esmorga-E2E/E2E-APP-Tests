@@ -12,6 +12,16 @@ export default class MyEventsList extends Basics {
     }
     get_where_tap_on(where){
         switch(where){
+            
+            case 'login':
+            switch (browser.capabilities.platformName) {
+                case "Android":
+                case "android":
+                    return '//android.widget.TextView[@text="Login"]'
+                case "iOS":
+                case "ios":
+                    return '//XCUIElementTypeButton[@name="DashboardView.myEvents"]'
+            }
             case 'event':
             switch (browser.capabilities.platformName) {
                 case "Android":

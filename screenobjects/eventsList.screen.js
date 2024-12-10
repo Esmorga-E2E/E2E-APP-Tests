@@ -7,7 +7,7 @@ export default class EventsList extends Basics {
                 return '//android.widget.TextView[@text="Event list"]'      
             case "iOS":
             case "ios":
-                return '//XCUIElementTypeStaticText[@name="Listado de eventos"]'
+                return '~Listado de eventos'
         }
     }
     get_where_tap_on(where){

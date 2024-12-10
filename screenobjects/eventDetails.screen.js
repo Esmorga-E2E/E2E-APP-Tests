@@ -20,10 +20,16 @@ export default class EventDetails extends Basics {
                     case "android":
                         return '//android.widget.ScrollView/android.view.View[2]/android.widget.Button'
                                 
-                        case "iOS":
+                    case "iOS":
                     case "ios":
                         return '//XCUIElementTypeButton[2]'
                 }    
+                case 'secondary button':
+                    switch (browser.capabilities.platformName) {
+                        case "Android":
+                        case "android":
+                            return '//android.widget.ScrollView/android.view.View[1]/android.widget.Button'
+                    }  	
 
             default:
                 return super.get_where_tap_on(where)
