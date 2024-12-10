@@ -80,6 +80,7 @@ Then(/^(.*) snackbar is shown$/, async (snackbar) => {
 Then ('get page', async () => {
 //    const page= await     driver.getPageSource()
 //    console.log(page)
+/*
 const elementos = await $$('//*');
 
 // Filtrar los que tienen accessibilityId
@@ -95,4 +96,6 @@ for (const elemento of elementos) {
 elementosConAccessibilityId.forEach((item) => {
     console.log(`Elemento: ${item.elemento}, AccessibilityId: ${item.accessibilityId}`);
 });
+*/
+console.log("To do")
 });
