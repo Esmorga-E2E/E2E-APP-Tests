@@ -1,5 +1,5 @@
 Feature: Test registred
-	@ios @smoke
+	@ios @smoke @finished
     Scenario: TC - Login MVP - Login
 		Given just opened app
 		Then wellcome screen is shown
@@ -9,7 +9,7 @@ Feature: Test registred
 		And write Password!4 on field password
 		And tap on primary button
 		Then events list screen is shown
-	@android @smoke
+	@android @smoke @finished
     Scenario: TC - Login MVP - Login
 		Given just opened app
 		Then wellcome screen is shown
