@@ -12,4 +12,5 @@ Feature: Test Visual Changes
 		And compare screen
 		When tap on primary button
 		Then login screen is shown
+		When write esmorga.test.04@yopmail.com on field email
 		And compare screen
