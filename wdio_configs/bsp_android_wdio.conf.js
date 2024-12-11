@@ -1,4 +1,4 @@
-const appPackage = 'com.mobilestudio.esmorga';
+const appPackage = 'cmm.apps.esmorga';
 import { basic_config } from "./basic.conf.js";
 export const config = { ...basic_config, 
   user: process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
@@ -10,43 +10,41 @@ export const config = { ...basic_config,
       {
         browserstackLocal: true,
         testObservabilityOptions: {
-          projectName: "Esmorga iOS",
+          projectName: "Esmorga Android",
           buildName: '1',
           sessionName: 'Pipe Test',
         },
         app: process.env.BROWSERSTACK_APP_ID,
-      }
+      },
     ]
   ],
 
 
-
-capabilities: [{
-  'bstack:options': {
-    deviceName: 'iPhone 1[3456]',
-    platformVersion: '1[678]',
-    platformName: 'ios',
+  capabilities: [{
+    'bstack:options': {
+      deviceName: 'Samsung Galaxy S22 Ultra',
+      platformName: 'android',
+    },
+  
+  }],
+  commonCapabilities: {
+    'bstack:options': {
+      debug: true,
+      networkLogs: true,
+      appiumVersion: '2.0',
+    }
   },
-
-}],
-commonCapabilities: {
-  'bstack:options': {
-    debug: true,
-    networkLogs: true,
-
-    appiumVersion: '2.0',
-  }
-},
 
 maxInstances: 5,
 
 beforeScenario: async function (world, context) {
   const appState = await driver.queryAppState(appPackage);
   if (appState !== 4) {
-    await driver.activateApp(
+    await driver.startActivity(
       appPackage,
-      );
-      await driver.pause(500);
+      ".view.MainActivity"
+    );
+    await driver.pause(500);
   }
 },
 
@@ -55,5 +53,6 @@ afterScenario: async function (world, context) {
   await driver.terminateApp(appPackage);
   await driver.pause(500);
 }
+
 
 };

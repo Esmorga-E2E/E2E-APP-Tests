@@ -66,7 +66,8 @@ export default class Basics {
 
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeOther[@name="Izquierda"][1]'
+                        return '//XCUIElementTypeButton[@name="Izquierda"][1]'
+//                        return '//XCUIElementTypeOther[@name="Izquierda"][1]|//XCUIElementTypeButton[@name="Izquierda"][1]'
                 }
           
             case 'explore':

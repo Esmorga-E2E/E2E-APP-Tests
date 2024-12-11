@@ -19,12 +19,14 @@ export const config = { ...basic_config,
     ]
   ],
 
+
   capabilities: [{
     'bstack:options': {
       deviceName: 'Samsung .*',
       platformVersion: '1[12345].0',
       platformName: 'android',
     },
+  
   }],
   commonCapabilities: {
     'bstack:options': {
