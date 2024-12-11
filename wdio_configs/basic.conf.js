@@ -4,6 +4,7 @@ export const basic_config = {
     ],
     exclude: [],
     maxInstances: 1,
+    retries: 3, 
 //    logLevel: 'info',
     logLevel: 'error',
     bail: 0,

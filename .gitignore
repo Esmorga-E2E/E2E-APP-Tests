@@ -132,3 +132,4 @@ esmorga.apk
 esmorga.ipa
 .tmp/*
 browserstack.err
+prepare.sh

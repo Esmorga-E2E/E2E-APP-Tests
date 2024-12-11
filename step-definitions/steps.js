@@ -1,5 +1,8 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
 import { expect, $ } from '@wdio/globals'
+import percyScreenshot from '@percy/appium-app'
+
+
 
 import Wellcome from '../screenobjects/wellcome.screen.js';
 import EventsList from '../screenobjects/eventsList.screen.js';
@@ -47,6 +50,32 @@ When(/^tap on (.*)$/, async (where) => {
                 { type: 'pointerUp', button: 0 }
             ]
         }]);
+
+    
+        const elementLocation = await findWhereTapOn.getLocation();
+        const elementSize = await findWhereTapOn.getSize();
+        const screenHeight = (await driver.getWindowSize()).height;
+    
+        const elementBottom = elementLocation.y + elementSize.height;
+    
+
+        const isNearBottom = elementBottom > screenHeight ;
+
+        if (isNearBottom) {
+            console.log('The button is outof screen bottom');
+            await driver.performActions([{
+                type: 'pointer',
+                id: 'example',
+                parameters: { pointerType: 'touch' },
+                actions: [
+                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
+                    { type: 'pointerDown', button: 0 },
+                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
+                    { type: 'pointerUp', button: 0 }
+                ]
+            }]);
+        }            
+
         await browser.pause(100);       
         findWhereTapOn = await $(whereTapOn);
     }
@@ -59,6 +88,9 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
     const whereWriteOn = screens[status.screen].get_where_to_write(where)
     const findWriteOn = await $(whereWriteOn);
     await findWriteOn.addValue(text);
+    if (await driver.isKeyboardShown()) { 
+        await driver.hideKeyboard();     
+    }
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
@@ -69,7 +101,12 @@ Then(/^(.*) screen is shown$/, async (screen) => {
     const find_what_to_seek = await $(what_to_seek)
     await expect(find_what_to_seek).toBeDisplayed();
 
+
 });
+Then('compare screen', async () => {
+    await percyScreenshot(status.screen);
+});
+
 Then(/^(.*) snackbar is shown$/, async (snackbar) => {
     console.log(snackbar+" snackbar is show")
 //    console.log(await driver.getPageSource());

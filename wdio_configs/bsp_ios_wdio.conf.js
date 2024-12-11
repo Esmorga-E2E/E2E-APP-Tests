@@ -23,8 +23,8 @@ export const config = { ...basic_config,
 
 capabilities: [{
   'bstack:options': {
-    deviceName: 'iPhone 1[3456]',
-    platformVersion: '1[678]',
+    deviceName: 'iPhone 16',
+    platformVersion: '18',
     platformName: 'ios',
   },
 
