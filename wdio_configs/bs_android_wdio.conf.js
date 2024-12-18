@@ -14,7 +14,7 @@ export const config = { ...basic_config,
           buildName: '1',
           sessionName: 'Pipe Test',
         },
-        app: process.env.BROWSERSTACK_APP_ID,
+        app: process.env.BROWSERSTACK_APK_ID|process.env.BROWSERSTACK_APP_ID,
       },
     ]
   ],
@@ -22,8 +22,7 @@ export const config = { ...basic_config,
 
   capabilities: [{
     'bstack:options': {
-      deviceName: 'Samsung .*',
-      platformVersion: '1[12345].0',
+      deviceName: 'Google Pixel 9',
       platformName: 'android',
     },
   
@@ -33,7 +32,8 @@ export const config = { ...basic_config,
       debug: true,
       networkLogs: true,
       appiumVersion: '2.0',
-    }
+    },
+    "appium:disableWindowAnimation": true
   },
 
 maxInstances: 5,
@@ -47,6 +47,9 @@ beforeScenario: async function (world, context) {
     );
     await driver.pause(500);
   }
+
+
+
 },
 
 afterScenario: async function (world, context) {

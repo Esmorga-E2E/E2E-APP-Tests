@@ -19,17 +19,19 @@
   },
   "scripts": {
     "test": "npm run test:local:android & npm run test:local:ios",
-
     "test:local:ios": "wdio run ./wdio_configs/local_ios_wdio.conf.js --cucumberOpts.tagExpression='not @android and @finished'",
     "test:local:smoke:ios": "wdio run ./wdio_configs/local_ios_wdio.conf.js  --cucumberOpts.tagExpression='not @android and @smoke'",
     "test:local:on_going:ios": "wdio run ./wdio_configs/local_ios_wdio.conf.js --cucumberOpts.tagExpression='not @android and not and @finished'",
     "test:bs:ios": "wdio run ./wdio_configs/bs_ios_wdio.conf.js --cucumberOpts.tagExpression='not @android and @finished'",
-    "test:bsp:ios": "npx percy exec -- wdio run ./wdio_configs/bsp_ios_wdio.conf.js --cucumberOpts.tagExpression='not @android and @visual'",
+    "test:bsp:ios": "npx percy exec -- wdio run ./wdio_configs/bsp_ios_wdio.conf.js --cucumberOpts.tagExpression='not @android and @finished'",
     "test:local:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
     "test:local:smoke:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @smoke'",
     "test:local:on_going:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and not @finished'",
     "test:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
-    "test:bsp:android": "npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @visual'",
+    "test:bsp:android": "npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
     "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }
