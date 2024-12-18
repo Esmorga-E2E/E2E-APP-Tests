@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect, $ } from '@wdio/globals'
+import { expect, $, browser } from '@wdio/globals'
 import percyScreenshot from '@percy/appium-app'
 
 
@@ -9,7 +9,7 @@ import EventsList from '../screenobjects/eventsList.screen.js';
 import MyEventsList from '../screenobjects/myEventsList.screen.js';
 import EventDetails from '../screenobjects/eventDetails.screen.js';
 import Login from '../screenobjects/login.screen.js';
-
+let screenshots=[]
 
 const wellcome_screen = new Wellcome()
 const events_list_screen = new EventsList()
@@ -87,24 +87,29 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
     console.log("field "+where)
     const whereWriteOn = screens[status.screen].get_where_to_write(where)
     const findWriteOn = await $(whereWriteOn);
-    await findWriteOn.addValue(text);
+    const result=await findWriteOn.addValue(text);
     if (await driver.isKeyboardShown()) { 
         await driver.hideKeyboard();     
     }
+    expect(result)
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
-    console.log(screen+" screen is show")
     await browser.pause(500);
     status.screen=screen
+    const testIdentifier = `${status.screen} ${status.user_status}`
+    if (screenshots.includes(testIdentifier)) {
+        console.log(screen+" screen is show ")
+    }else{
+        console.log(screen+" screen is show, checking if capture is required" )
+        await percyScreenshot(testIdentifier);
+        screenshots.push(testIdentifier)
+    }
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
     await expect(find_what_to_seek).toBeDisplayed();
 
 
-});
-Then('compare screen', async () => {
-    await percyScreenshot(status.screen);
 });
 
 Then(/^(.*) snackbar is shown$/, async (snackbar) => {
@@ -123,3 +128,7 @@ Then(/^(.*) snackbar is shown$/, async (snackbar) => {
 Then ('get page', async () => {
 console.log("To be done")
 });
+Given(/^user status is (.*)$/, async (user_status) => {
+    status.user_status=user_status
+});
+
