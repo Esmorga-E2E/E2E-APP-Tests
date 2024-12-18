@@ -14,7 +14,7 @@ export const config = { ...basic_config,
           buildName: '1',
           sessionName: 'Pipe Test',
         },
-        app: process.env.BROWSERSTACK_APK_ID|process.env.BROWSERSTACK_APP_ID,
+        app: process.env.BROWSERSTACK_APK_ID,
       },
     ]
   ],
