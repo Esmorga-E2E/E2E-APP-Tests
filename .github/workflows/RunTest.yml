@@ -64,6 +64,7 @@ jobs:
       env: 
         OS: ${{inputs.OS}}
         BROWSERSTACK_APP_ID: ${{ steps.prepare_app.outputs.result }}
+        BROWSERSTACK_APK_ID: ${{ steps.prepare_app.outputs.result }}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
 
