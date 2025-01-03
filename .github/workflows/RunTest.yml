@@ -82,7 +82,8 @@ jobs:
         BROWSERSTACK_APK_ID: ${{ steps.prepare_app.outputs.result }}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
-
+        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }} 
+        
       run: |
         npm i
         npm run test:bsp:${{inputs.OS}}
