@@ -70,7 +70,7 @@ jobs:
 
       run: |
         npm i
-        PERCY_TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
+        export PERCY_TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
         if [ "$PERCY_TOKEN" == "null" ]; then
           echo "Error: No se encontró un token para el OS especificado."
           exit 1
