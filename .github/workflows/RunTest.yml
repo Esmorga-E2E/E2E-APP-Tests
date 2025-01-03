@@ -1,4 +1,4 @@
-name: Run E2E tests in BS
+name: Run ${{inputs.OS}} E2E tests in BS
 on:
   workflow_dispatch:
     inputs:
