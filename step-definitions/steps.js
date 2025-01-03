@@ -95,13 +95,13 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
-    await browser.pause(500);
     status.screen=screen
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
     await expect(find_what_to_seek).toBeDisplayed();
 
     const testIdentifier = `${status.screen} ${status.user_status}`
+    await browser.pause(1000);
     if (screenshots.includes(testIdentifier)) {
         console.log(screen+" screen is show ")
     }else{
