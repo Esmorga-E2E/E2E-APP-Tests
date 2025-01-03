@@ -59,22 +59,6 @@ jobs:
         fi
         echo "result=$result">> $GITHUB_OUTPUT
 
-    - name: Set Percy Token
-      id: set_percy_token
-      env:
-        PERCY_TOKENS: ${{secrets.PERCY_TOKENS}}
-        OS: ${{inputs.OS}}
-
-      run: |
-        echo "Evaluando token para OS=$OS..."
-        TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
-        if [ "$TOKEN" == "null" ]; then
-          echo "Error: No se encontró un token para el OS especificado."
-          exit 1
-        fi
-        echo "PERCY_TOKEN=$TOKEN" >> $GITHUB_ENV
-      shell: bash
-
     - name: Run a simple test
       env: 
         OS: ${{inputs.OS}}
@@ -82,8 +66,13 @@ jobs:
         BROWSERSTACK_APK_ID: ${{ steps.prepare_app.outputs.result }}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
-        PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }} 
-        
+        PERCY_TOKENS: ${{secrets.PERCY_TOKENS}}
+
       run: |
         npm i
+        PERCY_TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
+        if [ "$PERCY_TOKEN" == "null" ]; then
+          echo "Error: No se encontró un token para el OS especificado."
+          exit 1
+        fi
         npm run test:bsp:${{inputs.OS}}
