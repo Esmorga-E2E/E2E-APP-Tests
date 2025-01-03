@@ -10,5 +10,10 @@ capabilities: [{
   },
 
 }],
-
+BeforeAll: async function (world, context) {
+  driver.execute_script("mobile: shell", {
+    "command": "defaults",
+    "args": ["write", "com.apple.Accessibility", "ReduceMotionEnabled", "-bool", "true"]
+  })
+}
 };
