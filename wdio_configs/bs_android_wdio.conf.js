@@ -33,6 +33,7 @@ export const config = { ...basic_config,
       networkLogs: true,
       appiumVersion: '2.0',
     },
+    "disableWindowAnimation":true,
     "appium:disableWindowAnimation": true,
     "appium:reduceMotion": true
   },
@@ -40,6 +41,36 @@ export const config = { ...basic_config,
 maxInstances: 5,
 
 beforeScenario: async function (world, context) {
+  console.log('Ejecutando antes de cada escenario');
+
+  // Aquí irían los comandos para desactivar las animaciones
+  const commands = [
+      {
+          command: 'settings',
+          args: ['put', 'global', 'window_animation_scale', '0'],
+      },
+      {
+          command: 'settings',
+          args: ['put', 'global', 'transition_animation_scale', '0'],
+      },
+      {
+          command: 'settings',
+          args: ['put', 'global', 'animator_duration_scale', '0'],
+      },
+  ];
+
+  for (const cmd of commands) {
+      try {
+          await driver.executeScript('mobile: shell', cmd);
+          console.log(`Exec: ${cmd.command} ${cmd.args.join(' ')}`);
+      } catch (error) {
+          console.error(`Error exec ${cmd.command}:`, error);
+      }
+  }
+
+  // Confirmar que las animaciones están deshabilitadas
+  console.log('Animaciones deshabilitadas.');
+  
   const appState = await driver.queryAppState(appPackage);
   if (appState !== 4) {
     await driver.startActivity(
