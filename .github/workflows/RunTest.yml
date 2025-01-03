@@ -1,5 +1,4 @@
-name: Self-Hosted Runner Example
-
+name: Run E2E tests in BS
 on:
   workflow_dispatch:
     inputs:
@@ -63,6 +62,8 @@ jobs:
       id: set_percy_token
       env:
         PERCY_TOKENS: ${{secrets.PERCY_TOKENS}}
+        OS: ${{inputs.OS}}
+
       run: |
         echo "Evaluando token para OS=$OS..."
         TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
