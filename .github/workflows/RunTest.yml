@@ -72,4 +72,4 @@ jobs:
 
       run: |
         npm i
-        npm run test:bs:${{inputs.OS}}
+        npm run test:bsp:${{inputs.OS}}
