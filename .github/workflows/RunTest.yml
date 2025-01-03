@@ -1,5 +1,4 @@
-name: Self-Hosted Runner Example
-
+name: Run E2E tests in BS
 on:
   workflow_dispatch:
     inputs:
@@ -47,6 +46,7 @@ jobs:
       env: 
         build_url: ${{inputs.build_url}}
         OS: ${{inputs.OS}}
+
       id: prepare_app
       run: |
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
@@ -58,7 +58,21 @@ jobs:
         fi
         echo "result=$result">> $GITHUB_OUTPUT
 
+    - name: Set Percy Token
+      id: set_percy_token
+      env:
+        PERCY_TOKENS: ${{secrets.PERCY_TOKENS}}
+        OS: ${{inputs.OS}}
 
+      run: |
+        echo "Evaluando token para OS=$OS..."
+        TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
+        if [ "$TOKEN" == "null" ]; then
+          echo "Error: No se encontró un token para el OS especificado."
+          exit 1
+        fi
+        echo "PERCY_TOKEN=$TOKEN" >> $GITHUB_ENV
+      shell: bash
 
     - name: Run a simple test
       env: 
@@ -70,4 +84,4 @@ jobs:
 
       run: |
         npm i
-        npm run test:bs:${{inputs.OS}}
+        npm run test:bsp:${{inputs.OS}}
