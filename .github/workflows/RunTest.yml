@@ -47,6 +47,7 @@ jobs:
       env: 
         build_url: ${{inputs.build_url}}
         OS: ${{inputs.OS}}
+
       id: prepare_app
       run: |
         result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
@@ -67,6 +68,7 @@ jobs:
         BROWSERSTACK_APK_ID: ${{ steps.prepare_app.outputs.result }}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
+        PERCY_TOKEN: ${{secrets.PERCY_TOKENS}}[${{inputs.OS}}]
 
       run: |
         npm i
