@@ -1,3 +1,4 @@
+import uploadToBrowserStack from './libs/ota_download_bs_upload.js';
 const appPackage = 'cmm.apps.esmorga';
 import { basic_config } from "./basic.conf.js";
 export const config = { ...basic_config, 
@@ -44,6 +45,7 @@ beforeScenario: async function (world, context) {
   console.log('Ejecutando antes de cada escenario');
 
   // Aquí irían los comandos para desactivar las animaciones
+  /*
   const commands = [
       {
           command: 'settings',
@@ -70,7 +72,7 @@ beforeScenario: async function (world, context) {
 
   // Confirmar que las animaciones están deshabilitadas
   console.log('Animaciones deshabilitadas.');
-  
+ */ 
   const appState = await driver.queryAppState(appPackage);
   if (appState !== 4) {
     await driver.startActivity(
