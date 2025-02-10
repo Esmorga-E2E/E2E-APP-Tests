@@ -33,54 +33,7 @@ Given('just opened app', async () => {
 
 When(/^tap on (.*)$/, async (where) => {
     console.log("Tap on "+where)
-    const whereTapOn = screens[status.screen].get_where_tap_on(where)
-    await browser.pause(500); 
-    let findWhereTapOn = await $(whereTapOn);
-    let retry=5
-    while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
-        retry=retry-1
-        await driver.performActions([{
-            type: 'pointer',
-            id: 'example',
-            parameters: { pointerType: 'touch' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                { type: 'pointerUp', button: 0 }
-            ]
-        }]);
-
-    
-        const elementLocation = await findWhereTapOn.getLocation();
-        const elementSize = await findWhereTapOn.getSize();
-        const screenHeight = (await driver.getWindowSize()).height;
-    
-        const elementBottom = elementLocation.y + elementSize.height;
-    
-
-        const isNearBottom = elementBottom > screenHeight ;
-
-        if (isNearBottom) {
-            console.log('The button is outof screen bottom');
-            await driver.performActions([{
-                type: 'pointer',
-                id: 'example',
-                parameters: { pointerType: 'touch' },
-                actions: [
-                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                    { type: 'pointerDown', button: 0 },
-                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                    { type: 'pointerUp', button: 0 }
-                ]
-            }]);
-        }            
-
-        await browser.pause(100);       
-        findWhereTapOn = await $(whereTapOn);
-    }
-    await findWhereTapOn.click();
-    await browser.pause(500);
+    await screens[status.screen].tap_on(where)
 });
 
 When(/^write (.*) on field (.*)$/, async (text,where) => {
@@ -96,6 +49,21 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
 
 Then(/^(.*) screen is shown$/, async (screen) => {
     status.screen=screen
+    expect(await screens[status.screen].screen_is_shown()).toBeDisplayed();
+
+    const testIdentifier = `${status.screen} ${status.user_status}`
+    await browser.pause(1000);
+    if (screenshots.includes(testIdentifier)) {
+        console.log(screen+" screen is show ")
+    }else{
+        console.log(screen+" screen is show, checking if capture is required" )
+        await percyScreenshot(testIdentifier);
+        screenshots.push(testIdentifier)
+    }
+
+
+
+    /*
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
     await expect(find_what_to_seek).toBeDisplayed();
@@ -109,7 +77,7 @@ Then(/^(.*) screen is shown$/, async (screen) => {
         await percyScreenshot(testIdentifier);
         screenshots.push(testIdentifier)
     }
- 
+*/ 
 
 });
 

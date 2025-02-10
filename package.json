@@ -27,11 +27,16 @@
     "test:local:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
     "test:local:smoke:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @smoke'",
     "test:local:on_going:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and not @finished'",
-    "test:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
-    "test:bsp:android": "npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
-    "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'"
+    "Ytest:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
+    "test:bs:android": "BROWSERSTACK_APK_ID=$(npm run app:upload|egrep '^bs:') wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
+    "Xtest:bs:android": "wdio run ./wdio_configs/bs_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished' --platform=android",
+    "test:bsp:android": "BROWSERSTACK_APK_ID=$(npm run upload:app) npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
+    "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'",
+    "app:upload": "node .github/libs/ota_download_bs_upload.js"
+    
   },
   "dependencies": {
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "eslint-plugin-n": "^17.15.1"
   }
 }

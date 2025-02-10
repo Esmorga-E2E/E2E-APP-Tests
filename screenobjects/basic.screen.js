@@ -1,4 +1,57 @@
+const isAndroid = driver.isAndroid;
 export default class Basics {
+    async screen_is_shown(){
+        const what_to_seek = this.get_what_to_seek()
+        return await $(what_to_seek)
+    }
+
+    async tap_on(where){
+        const whereTapOn = this.get_where_tap_on(where)
+        let findWhereTapOn = await $(whereTapOn);
+        let retry=5
+        while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
+            retry=retry-1
+            await driver.performActions([{
+                type: 'pointer',
+                id: 'example',
+                parameters: { pointerType: 'touch' },
+                actions: [
+                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
+                    { type: 'pointerDown', button: 0 },
+                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
+                    { type: 'pointerUp', button: 0 }
+                ]
+            }]);
+            findWhereTapOn = await $(whereTapOn);
+        }
+        const elementLocation = await findWhereTapOn.getLocation();
+        const elementSize = await findWhereTapOn.getSize();
+        const screenHeight = (await driver.getWindowSize()).height;
+        const elementBottom = elementLocation.y + elementSize.height;
+        const isNearBottom = elementBottom > screenHeight ;
+
+        if (isNearBottom) {
+            console.log('The button is outof screen bottom');
+            await driver.performActions([{
+                type: 'pointer',
+                id: 'example',
+                parameters: { pointerType: 'touch' },
+                actions: [
+                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
+                    { type: 'pointerDown', button: 0 },
+                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
+                    { type: 'pointerUp', button: 0 }
+                ]
+            }]);
+        }            
+        await browser.pause(100);       
+    
+
+        findWhereTapOn = await $(whereTapOn);
+        await findWhereTapOn.click()
+        await browser.pause(200);
+    }
+    
     get_what_snackbar_seek(snackbar){
         switch(snackbar){
             case 'joined':
@@ -39,15 +92,13 @@ export default class Basics {
     get_where_tap_on(where){
         switch(where){
             case 'primary button':
-                switch (browser.capabilities.platformName) {
-                    case "Android":
-                    case "android":
-                        return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.Button'
-                                
-                        case "iOS":
-                    case "ios":
-                        return '//XCUIElementTypeButton[1]'
-                }    
+//                switch (browser.capabilities.platformName) {
+                    if (isAndroid) {
+                     return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.Button'
+                    } else {
+                     return '//XCUIElementTypeButton[1]'
+                    }
+                    
             case 'secondary button':
                 switch (browser.capabilities.platformName) {
                     case "Android":
