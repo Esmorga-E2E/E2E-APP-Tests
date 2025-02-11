@@ -38,60 +38,20 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Prepare APK or APP
-      env: 
-        build_url: ${{inputs.build_url}}
-        OS: ${{inputs.OS}}
-      id: prepare_url
-      run: |
-        if [ "${{inputs.OS}}" = "android" ] 
-        then url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
-        else url="$(echo ${{inputs.build_url}} | sed 's/https:\/\/otashare.mobgen.com\/build\//https:\/\/otashare.mobgen.com\/build\/download\//'| sed 's/\/esmorga-qa//' )"
-        fi
-        echo "result=$url">> $GITHUB_OUTPUT
-    - name: Prepare APK or APP
-      env: 
-        build_url: ${{inputs.build_url}}
-        OS: ${{inputs.OS}}
-
-      id: prepare_app
-      run: |
-        result=$(curl -u "${{secrets.BS_USER}}:${{secrets.bs_KEY}}" \
-          -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-          -F "url=${{ steps.prepare_url.outputs.result }}"| grep -o '"app_url":"[^"]*' | sed 's/"app_url":"//')
-        if [ "$result" = "" ]
-        then
-        exit 1
-        fi
-        echo "result=$result">> $GITHUB_OUTPUT
-
-    - name: Set Percy Token
-      id: set_percy_token
-      env:
-        PERCY_TOKENS: ${{secrets.PERCY_TOKENS}}
-        OS: ${{inputs.OS}}
-
-      run: |
-        echo "Evaluando token para OS=$OS..."
-        TOKEN=$(echo $PERCY_TOKENS | jq -r ".${OS}")
-        if [ "$TOKEN" == "null" ]; then
-          echo "Error: No se encontró un token para el OS especificado."
-          exit 1
-        fi
-        echo "PERCY_TOKEN=$TOKEN" >> $GITHUB_ENV
-      shell: bash
 
     - name: Run a simple test
+      shell: bash
       env: 
         OS: ${{inputs.OS}}
-        BROWSERSTACK_APP_ID: ${{ steps.prepare_app.outputs.result }}
-        BROWSERSTACK_APK_ID: ${{ steps.prepare_app.outputs.result }}
+        APK_URL: ${{inputs.build_url}}
+        APP_URL: ${{inputs.build_url}}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
 
       run: |
         npm i
         npm run test:bsp:${{inputs.OS}}
+
     - name: Clean up
       if: always()
       run: |
