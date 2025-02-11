@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import {uploadToBrowserStack} from './lib/ota_download_bs_upload.js';
 const appPackage = 'com.mobilestudio.esmorga';
 import { basic_config } from "./basic.conf.js";
 export const config = { ...basic_config, 
@@ -14,7 +17,7 @@ export const config = { ...basic_config,
           buildName: '1',
           sessionName: 'Pipe Test',
         },
-        app: process.env.BROWSERSTACK_APP_ID,
+        app: await uploadToBrowserStack(process.env.APP_URL)
       }
     ]
   ],
