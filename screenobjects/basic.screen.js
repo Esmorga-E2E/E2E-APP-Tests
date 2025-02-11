@@ -156,5 +156,14 @@ export default class Basics {
     
         }
     }
+
+
+    size = driver.get_window_size()
+    start_x = size["width"] * 0.05  
+    end_x = size["width"] * 0.5  
+    y = size["height"] / 2  
+    actions = TouchAction(driver)
+    actions.press(x=start_x, y=y).wait(200).move_to(x=end_x, y=y).release().perform()
+
     
 }

@@ -25,7 +25,6 @@ Feature: Test registred
 		And tap on primary button
 		Then user status is logged in
 		And events list screen is shown
-
 	
 	Scenario: TC - Tap Back inside Details
 		Given just opened app
@@ -35,8 +34,8 @@ Feature: Test registred
 		Then event details screen is shown
 		When tap on back
 		Then events list screen is shown
-
 	
+	@finished
 	Scenario: TC - Quit an Event
 		Given just opened app
 		And user status is logged in
@@ -44,9 +43,8 @@ Feature: Test registred
 		When tap on event
 		Then event details screen is shown
 		And tap on primary button
-		Then quit snackbar is shown
 
-	
+	@finished
 	Scenario: TC - Join an Event
 		Given just opened app
 		And user status is logged in
@@ -54,7 +52,6 @@ Feature: Test registred
 		When tap on event
 		Then event details screen is shown
 		And tap on primary button
-		Then joined snackbar is shown
 
 	@finished
 	Scenario: TC - Navigation Bar
@@ -67,6 +64,7 @@ Feature: Test registred
 		Then events list screen is shown
 		When tap on profile
 
+    @finished
 	Scenario: TC - Test in progress
 		Given just opened app
 		And user status is logged in

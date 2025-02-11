@@ -30,8 +30,8 @@
     "test:local:on_going:android": "wdio run ./wdio_configs/local_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and not @finished'",
     "test:bs:android": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
     "test:bsp:android": "OS=\"android\" npm run set-env ; npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
-    "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'"
-
+    "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'",
+    "test:bsp:all": "npm run test:bsp:android && npm run test:bsp:ios"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

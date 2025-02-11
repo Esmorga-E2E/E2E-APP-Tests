@@ -1,4 +1,5 @@
 Feature: Test unregistred
+
 	@finished
 	Scenario: TC - Event manager MVP - Reach login from event details
 		Given just opened app
@@ -10,6 +11,7 @@ Feature: Test unregistred
 		Then event details screen is shown
 		When tap on primary button
 		Then login screen is shown
+
 	@finished
 	Scenario: TC - Event manager MVP - Tap on Navegate
 		Given just opened app
@@ -21,7 +23,7 @@ Feature: Test unregistred
 		Then event details screen is shown
 		When tap on secondary button
 
-	
+	@finished
 	Scenario: TC - Event manager MVP - Go Back From Details screen
 		Given just opened app
 		And user status is unregistred
@@ -33,7 +35,7 @@ Feature: Test unregistred
 		When tap on back
 		Then events list screen is shown
 
-	@finished @smoke
+	@finished
 	Scenario: TC - Navigation Bar
 		Given just opened app
 		And user status is unregistred
