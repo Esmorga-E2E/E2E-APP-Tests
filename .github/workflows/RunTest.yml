@@ -11,7 +11,10 @@ on:
         description: OS
         required: true
         type: string
-
+      Branch:
+        description: APP Branch
+        required: true
+        type: string
         
   workflow_call:
     inputs:
@@ -23,7 +26,11 @@ on:
         description: OS
         required: true
         type: string
-
+      Branch:
+        description: APP Branch
+        required: true
+        type: string
+  
 
 jobs:
   Test-E2E:
@@ -76,3 +83,7 @@ jobs:
           exit 1
         fi
         npm run test:bsp:${{inputs.OS}}
+    - name: Clean up
+      if: always()
+      run: |
+        rm .env
