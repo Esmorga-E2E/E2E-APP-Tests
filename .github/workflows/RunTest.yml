@@ -92,3 +92,7 @@ jobs:
       run: |
         npm i
         npm run test:bsp:${{inputs.OS}}
+    - name: Clean up
+      if: always()
+      run: |
+        rm .env
