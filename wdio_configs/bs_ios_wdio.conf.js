@@ -1,3 +1,5 @@
+//    deviceName: 'iPhone 1[3456]',
+
 import dotenv from 'dotenv';
 dotenv.config();
 import {uploadToBrowserStack} from './lib/ota_download_bs_upload.js';
@@ -26,7 +28,7 @@ export const config = { ...basic_config,
 
 capabilities: [{
   'bstack:options': {
-    deviceName: 'iPhone 1[3456]',
+    deviceName: 'iPhone 15 Pro Max',
     platformVersion: '1[678]',
     platformName: 'ios',
   },

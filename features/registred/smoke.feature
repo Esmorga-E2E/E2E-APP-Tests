@@ -27,26 +27,9 @@ Feature: Test registred
 		And events list screen is shown
 
 	
-	Scenario: TC - Tap Back inside Details
-		Given just opened app
-		And user status is logged in
-		And events list screen is shown
-		When tap on event
-		Then event details screen is shown
-		When tap on back
-		Then events list screen is shown
 
-	
-	Scenario: TC - Quit an Event
-		Given just opened app
-		And user status is logged in
-		And events list screen is shown
-		When tap on event
-		Then event details screen is shown
-		And tap on primary button
-		Then quit snackbar is shown
 
-	
+	@finished
 	Scenario: TC - Join an Event
 		Given just opened app
 		And user status is logged in
@@ -54,9 +37,21 @@ Feature: Test registred
 		When tap on event
 		Then event details screen is shown
 		And tap on primary button
-		Then joined snackbar is shown
+		Then rajarse button content is show
 
 	@finished
+	Scenario: TC - Unsubscribe from a joined event on My Events screen
+		Given just opened app
+		And user status is logged in
+		And events list screen is shown
+		When tap on my events
+		Then my events list screen is shown
+		When tap on event
+		Then event details screen is shown
+		And tap on primary button
+		Then apuntarse button content is show
+
+
 	Scenario: TC - Navigation Bar
 		Given just opened app
 		And user status is logged in
@@ -67,6 +62,19 @@ Feature: Test registred
 		Then events list screen is shown
 		When tap on profile
 
+
+
+	@in_progress
+	Scenario: TC - Tap Back inside Details
+		Given just opened app
+		And user status is logged in
+		And events list screen is shown
+		When tap on event
+		Then event details screen is shown
+		When tap on back
+		Then events list screen is shown
+
+			@in_progress
 	Scenario: TC - Test in progress
 		Given just opened app
 		And user status is logged in

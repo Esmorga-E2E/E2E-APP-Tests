@@ -12,6 +12,7 @@ export default class EventDetails extends Basics {
         }
 
     }
+   
     get_where_tap_on(where){
         switch(where){
             case 'primary button':
@@ -29,6 +30,29 @@ export default class EventDetails extends Basics {
                         case "Android":
                         case "android":
                             return '//android.widget.ScrollView/android.view.View[1]/android.widget.Button'
+                        case "iOS":
+                        case "ios":
+                            return super.get_where_tap_on(where)
+                    }
+                case 'rajarse button':
+                    switch (browser.capabilities.platformName) {
+                        case "Android":
+                        case "android":
+                            return '//android.widget.TextView[@text="Leave Event"]'
+                                    
+                        case "iOS":
+                        case "ios":
+                            return 'accessibility id:Rajarse'
+                    }
+                case 'apuntarse button':
+                    switch (browser.capabilities.platformName) {
+                        case "Android":
+                        case "android":
+                            return '//android.widget.TextView[@text="Join Event"]'
+                                    
+                        case "iOS":
+                        case "ios":
+                            return 'accessibility id:Apuntarse'
                     }  	
 
             default:

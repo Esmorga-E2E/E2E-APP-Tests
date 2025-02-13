@@ -133,3 +133,10 @@ Given(/^user status is (.*)$/, async (user_status) => {
     status.user_status=user_status
 });
 
+
+Then (/^(.*) content is show$/, async (what) => {
+    await browser.pause(1500);
+    const What = screens[status.screen].get_where_tap_on(what)
+    let findWhat = await $(What);
+    await expect(findWhat).toBeDisplayed();
+    });
