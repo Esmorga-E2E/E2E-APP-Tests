@@ -13,5 +13,6 @@ export async function uploadToBrowserStack(url) {
 
     }
   });
+  console.log("APP:"+response.data.app_url)
   return response.data.app_url;
 }
