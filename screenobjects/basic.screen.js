@@ -1,10 +1,12 @@
 import axios from "axios";
+
 import dotenv from 'dotenv';
 dotenv.config();
 
 const HOST=process.env.MOCK_SERVER_HOST
 const USERNAME=process.env.MOCK_SERVER_USERNAME
 const PASSWORD=process.env.MOCK_SERVER_PASSWORD
+
 const PORT = 443; // Ajusta el puerto si es diferente
 const BASE_URL = `https://${HOST}:${PORT}`;
 let req = {}
