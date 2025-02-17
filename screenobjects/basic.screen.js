@@ -1,3 +1,54 @@
+import axios from "axios";
+const HOST="mockserver.esmorga.canarte.org"
+const USERNAME = "wallwalker"; // Reemplaza con tu usuario
+const PASSWORD = "lasmilyuna";
+const PORT = 443; // Ajusta el puerto si es diferente
+const BASE_URL = `https://${HOST}:${PORT}`;
+let req = {}
+let res = {}
+
+const encodedCredentials = Buffer.from(`${USERNAME}:${PASSWORD}`).toString("base64");
+const headers = {
+    "Authorization": `Basic ${encodedCredentials}`,
+    "Content-Type": "application/json"
+};
+
+async function addMock(httpRequest,httpResponse) {
+    try {
+        await axios.put(`${BASE_URL}/mockserver/expectation`, {
+	"httpRequest": httpRequest,
+	
+	 "httpResponse": httpResponse,
+	"priority": 10,
+	"times": { "remainingTimes": 1 } 
+        }, { headers });
+
+        console.log("✅ Add Mock "+httpRequest.method+" "+httpRequest.path+" with response "+httpResponse.statusCode);   
+    } catch (err) {
+        console.error("❌ Error adding mock:", err.response ? err.response.data : err);
+    }
+}
+
+async function getRequests() {
+    try {
+        const response = await axios.put(`${BASE_URL}/mockserver/retrieve?type=LOGS`, {
+            "path": "/v1/events"
+        },  { headers });
+
+        return response.data
+    } catch (error) {
+        console.error('Error retrieving requests:', error);
+    }
+}
+async function clearAllLogs() {
+    try {
+        await axios.put(`${BASE_URL}/mockserver/clear?type=log`, {}, { headers });
+        console.log("All logs cleared");
+    } catch (error) {
+        console.error('Error clearing logs:', error);
+    }
+}
+
 export default class Basics {
     get_what_snackbar_seek(snackbar){
         switch(snackbar){
@@ -101,8 +152,44 @@ export default class Basics {
                     case "iOS":
                     case "ios":
                         return '//XCUIElementTypeButton[@name="DashboardView.bottomBar"][3] | //XCUIElementTypeButton[@name="SplashView.dashboard"][3]'
-            }   
-    
+
+            }
+        }  	
+    }
+
+    async get_logs(){
+        return await getRequests()
+    }
+    async clear_logs(){
+        await clearAllLogs()
+    }
+    async mock(what,response){
+        switch(what){
+            case 'get events':
+                switch (response) {
+                    case "200 with events":
+                        req = {
+                                        "method": "GET",
+                                        "path":'/v1/events',
+                                        }
+                        res = {
+                                        "body":{"totalEvents":1,"events":[{"eventId":"66ffd9624bd73c0dbe7e2d6d","eventName":"lololo","eventDate":"2025-03-08T10:05:30.915Z","description":"Join us for an unforgettable celebration as we dance into the apocalypse.","eventType":"Party","imageUrl":"image.url","location":{"lat":43.35525182148881,"long":-8.41937931298951,"name":"A Coruña"},"tags":["DANCE","MUSIC"]}]},
+                                        "statusCode": 200
+                                    }
+                        await addMock(req,res)
+                        break
+                    case "404":
+                        req = {
+                                        "method": "GET",
+                                        "path":'/v1/events',
+                                        }
+                        res = {
+                                        "body":{},
+                                        "statusCode": 404
+                                    }
+                        await addMock(req,res)
+                        break
+                    }
         }
     }
     

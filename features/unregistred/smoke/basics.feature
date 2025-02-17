@@ -11,7 +11,7 @@ Feature: Test unregistred
 		When tap on primary button
 		Then login screen is shown
 
-	@finished @smoke 
+	
 	Scenario: TC - Navigation Bar
 		Given just opened app
 		And user status is unregistred

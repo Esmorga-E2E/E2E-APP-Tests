@@ -33,7 +33,7 @@
     "test:bs:android:test": "wdio run ./wdio_configs/bs_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @test'",
     "test:bsp:android": "OS=\"android\" npm run set-env ; npx percy exec -- wdio run ./wdio_configs/bsp_android_wdio.conf.js --cucumberOpts.tagExpression='not @ios and @finished'",
     "test:macmini:android": "wdio run ./wdio_configs/macmini_android_wdio.conf.js  --cucumberOpts.tagExpression='not @ios and @finished'",
-    "test:bs": "npm run test:bs:android && npm run test:bs:ios"
+    "test:bs": " npm run test:bs:ios && npm run test:bs:android"
   },
   "dependencies": {
     "dotenv": "^16.4.7"

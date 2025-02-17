@@ -25,6 +25,9 @@ const screens = {
     login:login_screen
 }
 const status={}
+status.screen='wellcome'
+status.user_status='not logged'
+
 Given('just opened app', async () => {
     console.log("Open APP")
     await driver.pause(1000);
@@ -32,9 +35,8 @@ Given('just opened app', async () => {
 });
 
 When(/^tap on (.*)$/, async (where) => {
-    console.log("Tap on "+where)
     const whereTapOn = screens[status.screen].get_where_tap_on(where)
-    await browser.pause(500); 
+    await browser.pause(1000); 
     let findWhereTapOn = await $(whereTapOn);
     let retry=5
     while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
@@ -79,37 +81,62 @@ When(/^tap on (.*)$/, async (where) => {
         await browser.pause(100);       
         findWhereTapOn = await $(whereTapOn);
     }
+    console.log("✅ Tap on "+where)
+/*    
+    const msg="❌ Tap on "+where
+    try{
+        expect(findWhereTapOn).toBeDisplayed();
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+*/    
     await findWhereTapOn.click();
     await browser.pause(500);
 });
 
 When(/^write (.*) on field (.*)$/, async (text,where) => {
-    console.log("field "+where)
+    
     const whereWriteOn = screens[status.screen].get_where_to_write(where)
     const findWriteOn = await $(whereWriteOn);
     const result=await findWriteOn.addValue(text);
     if (await driver.isKeyboardShown()) { 
         await driver.hideKeyboard();     
     }
-    expect(result)
+    const msg="❌ Field "+where
+    try{
+        expect(result)
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
-    await browser.pause(500);
+    await browser.pause(2000);
     status.screen=screen
     const what_to_seek = screens[status.screen].get_what_to_seek()
     const find_what_to_seek = await $(what_to_seek)
-    await expect(find_what_to_seek).toBeDisplayed();
+    const msg=("❌ "+screen+" screen is shown")         
+    try{
+        await expect(find_what_to_seek).toBeDisplayed();
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+    
 
+/*
     const testIdentifier = `${status.screen} ${status.user_status}`
-    if (screenshots.includes(testIdentifier)) {
-        console.log(screen+" screen is show ")
-    }else{
-        console.log(screen+" screen is show, checking if capture is required" )
+    if (!screenshots.includes(testIdentifier)) {
+        console.log("\tChecking if capture is required" )
         await percyScreenshot(testIdentifier);
         screenshots.push(testIdentifier)
     }
- 
+*/
 
 });
 
@@ -127,16 +154,44 @@ Then(/^(.*) snackbar is shown$/, async (snackbar) => {
 
 });
 Then ('get page', async () => {
-console.log("To be done")
+console.log('\n\n\
+    Page source: \n\n\
+    ' + await driver.getPageSource() + '\n\n\
+    ')
 });
 Given(/^user status is (.*)$/, async (user_status) => {
     status.user_status=user_status
 });
 
 
-Then (/^(.*) content is show$/, async (what) => {
-    await browser.pause(1500);
+Then (/^(.*) content is shown$/, async (what) => {
+    await browser.pause(3000);
     const What = screens[status.screen].get_where_tap_on(what)
     let findWhat = await $(What);
-    await expect(findWhat).toBeDisplayed();
-    });
+    
+
+    const msg=("❌ "+what+" content is shown")         
+    try{
+        expect(findWhat).toBeDisplayed();
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+
+
+
+});
+
+
+Then (/^mock (.*) to response (.*)$/, async (what,response) => {
+        await screens[status.screen].mock(what,response)
+});
+
+Given (/^mock server is cleared$/, async () => {
+    await screens[status.screen].clear_logs()
+});
+When (/^get requests$/, async () => {        
+    
+    console.log(await screens[status.screen].get_logs())
+});
