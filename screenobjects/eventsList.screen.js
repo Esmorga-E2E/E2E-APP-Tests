@@ -21,6 +21,18 @@ export default class EventsList extends Basics {
                     case "ios":
                         return '//XCUIElementTypeButton[1]'
                 }
+                case 'retry button':
+                    switch (browser.capabilities.platformName) {
+                        case "Android":
+                        case "android":
+                            return '//android.widget.TextView[@text="Retry"]'
+                                    
+                        case "iOS":
+                        case "ios":
+                            return 'accessibility id:Reintentar'
+                        }   
+            
+         
             default:
                 return super.get_where_tap_on(where)
             

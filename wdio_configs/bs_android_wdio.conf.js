@@ -42,7 +42,7 @@ export const config = { ...basic_config,
     "appium:reduceMotion": true
   },
 
-maxInstances: 5,
+maxInstances: 1,
 
 beforeScenario: async function (world, context) {
   const appState = await driver.queryAppState(appPackage);

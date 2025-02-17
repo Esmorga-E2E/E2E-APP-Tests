@@ -38,14 +38,13 @@ commonCapabilities: {
   'bstack:options': {
     debug: true,
     networkLogs: true,
-
     appiumVersion: '2.0',
     "appium:disableWindowAnimation": true,
     "appium:reduceMotion": true
   }
 },
 
-maxInstances: 5,
+maxInstances: 1,
 
 beforeScenario: async function (world, context) {
   const appState = await driver.queryAppState(appPackage);
