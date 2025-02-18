@@ -35,6 +35,15 @@ export default class MyEventsList extends Basics {
                 case "ios":
                     return '//XCUIElementTypeButton[1]'
             }
+            case 'loading events':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return '//android.widget.TextView[@text="Loading events…"]'
+                    case "iOS":
+                    case "ios":
+                        return '//XCUIElementTypeStaticText[@name="DashboardView.myEvents" and @label="Cargando eventos…"]'
+                }
            
             default:
                 return super.get_where_tap_on(where)

@@ -34,6 +34,31 @@ async function addMock(httpRequest,httpResponse) {
     }
 }
 
+async function addForwardDelay(httpRequest,time) {
+    try {
+        await axios.put(`${BASE_URL}/mockserver/expectation`, {
+	"httpRequest": httpRequest,
+	
+    "httpForward": {
+        "host": "127.0.0.1",
+        "port": 3000,
+        "scheme": "HTTP",
+        "delay": {
+          "timeUnit": "SECONDS",
+          "value": time
+        }
+      },
+	"priority": 10,
+	"times": { "remainingTimes": 1 } 
+        }, { headers });
+
+        console.log("✅ Add Froward +"+time+" secs Delay "+httpRequest.method+" "+httpRequest.path);   
+    } catch (err) {
+        console.error("❌ Error adding mock:", err.response ? err.response.data : err);
+    }
+}
+
+
 async function getRequests() {
     try {
         const response = await axios.put(`${BASE_URL}/mockserver/retrieve?type=LOGS`, {
@@ -195,7 +220,35 @@ export default class Basics {
                         await addMock(req,res)
                         break
                     }
+            case 'get my events':
+                switch (response) {
+        
+                    case "404":
+                        req = {
+                                        "method": "GET",
+                                        "path":"/v1/account/events",
+                                        }
+                        res = {
+                                        "body":{},
+                                        "statusCode": 404
+                                    }
+                        await addMock(req,res)
+                        break
+                }
+        
         }
     }
+    async delay(what,time){
+        switch(what){
+            case 'get my events':
+                req = {
+                    "method": "GET",
+                    "path":"/v1/account/events",
+                    }
+                addForwardDelay(req,time)
+                break 
+
+        }
+    }       
     
 }
