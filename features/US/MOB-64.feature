@@ -36,7 +36,7 @@ Feature: MOB-64
 		Then user status is logged in
 
 
-    Scenario: TC - Login
+    Scenario: MOB-TC-153: TC - My Events Screen - Handle loading screen when retrieving events
 		Given just opened app
 		And user status is registred
 		And events list screen is shown
