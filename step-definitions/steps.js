@@ -26,10 +26,10 @@ const screens = {
 }
 const status={}
 status.screen='wellcome'
-status.user_status='not logged'
+status.registred=false
 
 Given('just opened app', async () => {
-    console.log("Open APP")
+    console.log("Open APP ")
     await driver.pause(1000);
     
 });
@@ -82,16 +82,7 @@ When(/^tap on (.*)$/, async (where) => {
         findWhereTapOn = await $(whereTapOn);
     }
     console.log("✅ Tap on "+where)
-/*    
-    const msg="❌ Tap on "+where
-    try{
-        expect(findWhereTapOn).toBeDisplayed();
-        console.log(msg.replace("❌","✅"));
-    }catch(err){
-        console.log(msg);
-        throw err
-    }
-*/    
+
     await findWhereTapOn.click();
     await browser.pause(500);
 });
@@ -117,7 +108,7 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
 Then(/^(.*) screen is shown$/, async (screen) => {
     await browser.pause(2000);
     status.screen=screen
-    const what_to_seek = screens[status.screen].get_what_to_seek()
+    const what_to_seek = screens[status.screen].get_what_to_seek(status.registred)
     const find_what_to_seek = await $(what_to_seek)
     const msg=("❌ "+screen+" screen is shown")         
     try{
@@ -160,7 +151,11 @@ console.log('\n\n\
     ')
 });
 Given(/^user status is (.*)$/, async (user_status) => {
-    status.user_status=user_status
+    if (user_status=='logged in'){
+        status.registred=true
+    }else{  
+        status.registred=false
+    }
 });
 
 

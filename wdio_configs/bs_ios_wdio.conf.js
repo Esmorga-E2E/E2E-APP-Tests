@@ -47,6 +47,7 @@ commonCapabilities: {
 maxInstances: 1,
 
 beforeScenario: async function (world, context) {
+
   const appState = await driver.queryAppState(appPackage);
   if (appState !== 4) {
     await driver.activateApp(

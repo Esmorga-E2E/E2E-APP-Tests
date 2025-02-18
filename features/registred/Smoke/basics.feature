@@ -69,7 +69,7 @@ Feature: Test registred
 		When tap on back
 		Then events list screen is shown
 
-			@in_progress
+	@in_progress
 	Scenario: TC - Test in progress
 		Given just opened app
 		And user status is logged in

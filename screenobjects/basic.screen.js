@@ -186,7 +186,7 @@ export default class Basics {
                     case "404":
                         req = {
                                         "method": "GET",
-                                        "path":'/v1/events',
+                                        "path":"/v1/events",
                                         }
                         res = {
                                         "body":{},

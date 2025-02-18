@@ -1,15 +1,19 @@
 import Basics from './basic.screen'
+
 export default class MyEventsList extends Basics {
-    get_what_to_seek () {
+    get_what_to_seek(reg) {
         switch (browser.capabilities.platformName) {
             case "Android":
             case "android":
-                return '//android.widget.TextView[@text="Your events"]'
+                return reg ? '?': '//android.widget.TextView[@text="Your events"]' 
+
             case "iOS":
             case "ios":
-                return '//XCUIElementTypeStaticText[@name="DashboardView.myEvents" and @label="Tus eventos"]|//XCUIElementTypeStaticText[@name="MyEventsView.title"]'
+                return reg
+                ? '//XCUIElementTypeStaticText[@name="MyEventsView.title"]'
+                : '//XCUIElementTypeStaticText[@name="DashboardView.myEvents" and @label="Tus eventos"]'
         }
-    }
+    } 
     get_where_tap_on(where){
         switch(where){
             
