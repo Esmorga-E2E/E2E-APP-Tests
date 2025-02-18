@@ -43,8 +43,8 @@ Feature: MOB-64
 		Given just opened app
 		And user status is registred
 		And events list screen is shown
-		When tap on my events
 		And delay 10 seconds to get my events
+		When tap on my events
 		Then my events list screen is shown
 		And loading events content is shown
 
