@@ -1,7 +1,7 @@
 import Basics from './basic.screen'
 export default class EventDetails extends Basics {
 
-    get_what_to_seek () {
+    get_what_to_seek(reg) {
         switch (browser.capabilities.platformName) {
             case "Android":
             case "android":
@@ -44,16 +44,28 @@ export default class EventDetails extends Basics {
                         case "ios":
                             return 'accessibility id:Rajarse'
                     }
-                case 'apuntarse button':
-                    switch (browser.capabilities.platformName) {
-                        case "Android":
-                        case "android":
-                            return '//android.widget.TextView[@text="Join Event"]'
-                                    
-                        case "iOS":
-                        case "ios":
-                            return 'accessibility id:Apuntarse'
-                    }  	
+                    case 'apuntarse button':
+                        switch (browser.capabilities.platformName) {
+                            case "Android":
+                            case "android":
+                                return '//android.widget.TextView[@text="Join Event"]'
+                                        
+                            case "iOS":
+                            case "ios":
+                                return 'accessibility id:Apuntarse'
+                        }  	
+                    case 'Identificate para apuntarte button':
+                        switch (browser.capabilities.platformName) {
+                            case "Android":
+                            case "android":
+                                return '//android.widget.ScrollView/android.view.View[2]/android.widget.Button'
+                                        
+                            case "iOS":
+                            case "ios":
+                                return 'accessibility id:Identifícate para apuntarte'
+                        }  	
+                                
+
 
             default:
                 return super.get_where_tap_on(where)

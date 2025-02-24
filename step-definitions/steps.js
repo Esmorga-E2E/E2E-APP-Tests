@@ -26,10 +26,10 @@ const screens = {
 }
 const status={}
 status.screen='wellcome'
-status.user_status='not logged'
+status.registred=false
 
 Given('just opened app', async () => {
-    console.log("Open APP")
+    console.log("Open APP ")
     await driver.pause(1000);
     
 });
@@ -81,47 +81,43 @@ When(/^tap on (.*)$/, async (where) => {
         await browser.pause(100);       
         findWhereTapOn = await $(whereTapOn);
     }
-    console.log("✅ Tap on "+where)
-/*    
-    const msg="❌ Tap on "+where
     try{
-        expect(findWhereTapOn).toBeDisplayed();
-        console.log(msg.replace("❌","✅"));
+        expect(await $(whereTapOn)).toBeDisplayed
+        findWhereTapOn = await $(whereTapOn);
+        expect(await findWhereTapOn.click())
+        console.log("✅ Tap on "+where)
     }catch(err){
-        console.log(msg);
+        console.log("❌ Tap on "+where)
         throw err
     }
-*/    
-    await findWhereTapOn.click();
     await browser.pause(500);
 });
 
 When(/^write (.*) on field (.*)$/, async (text,where) => {
     
     const whereWriteOn = screens[status.screen].get_where_to_write(where)
-    const findWriteOn = await $(whereWriteOn);
-    const result=await findWriteOn.addValue(text);
-    if (await driver.isKeyboardShown()) { 
-        await driver.hideKeyboard();     
-    }
     const msg="❌ Field "+where
     try{
-        expect(result)
+        await expect(await $(whereWriteOn)).toBeDisplayed();
+        const findWriteOn = await $(whereWriteOn);
+        await expect(await findWriteOn.addValue(text))
         console.log(msg.replace("❌","✅"));
     }catch(err){
         console.log(msg);
         throw err
+    }
+    if (await driver.isKeyboardShown()) { 
+        await driver.hideKeyboard();     
     }
 });
 
 Then(/^(.*) screen is shown$/, async (screen) => {
     await browser.pause(2000);
     status.screen=screen
-    const what_to_seek = screens[status.screen].get_what_to_seek()
-    const find_what_to_seek = await $(what_to_seek)
+    const what_to_seek = screens[status.screen].get_what_to_seek(status.registred)
     const msg=("❌ "+screen+" screen is shown")         
     try{
-        await expect(find_what_to_seek).toBeDisplayed();
+        await expect(await $(what_to_seek)).toBeDisplayed();
         console.log(msg.replace("❌","✅"));
     }catch(err){
         console.log(msg);
@@ -129,30 +125,24 @@ Then(/^(.*) screen is shown$/, async (screen) => {
     }
     
 
-/*
+
     const testIdentifier = `${status.screen} ${status.user_status}`
     if (!screenshots.includes(testIdentifier)) {
         console.log("\tChecking if capture is required" )
         await percyScreenshot(testIdentifier);
         screenshots.push(testIdentifier)
     }
-*/
+
 
 });
 
 Then(/^(.*) snackbar is shown$/, async (snackbar) => {
     console.log(snackbar+" snackbar is show")
-//    console.log(await driver.getPageSource());
     const what_to_seek = screens[status.screen].get_what_snackbar_seek(snackbar)
-    const find_what_to_seek = await $(what_to_seek)
-    if (await find_what_to_seek.isDisplayed()) {
-        console.log('El Snackbar es visible');
-    } else {
-        console.log('El Snackbar NO es visible');
-    }
-    await expect(find_what_to_seek).toBeDisplayed();
-
+    expect(await $(what_to_seek)).toBeDisplayed();
 });
+
+
 Then ('get page', async () => {
 console.log('\n\n\
     Page source: \n\n\
@@ -160,38 +150,46 @@ console.log('\n\n\
     ')
 });
 Given(/^user status is (.*)$/, async (user_status) => {
-    status.user_status=user_status
+    if (user_status=='logged in'){
+        status.registred=true
+    }else{  
+        status.registred=false
+    }
 });
 
 
 Then (/^(.*) content is shown$/, async (what) => {
     await browser.pause(3000);
     const What = screens[status.screen].get_where_tap_on(what)
-    let findWhat = await $(What);
-    
-
     const msg=("❌ "+what+" content is shown")         
     try{
-        expect(findWhat).toBeDisplayed();
+        await expect(await $(What)).toBeDisplayed();
         console.log(msg.replace("❌","✅"));
     }catch(err){
         console.log(msg);
         throw err
     }
-
-
-
 });
 
 
 Then (/^mock (.*) to response (.*)$/, async (what,response) => {
+        await browser.pause(1000);
         await screens[status.screen].mock(what,response)
+        await browser.pause(1000);
 });
 
 Given (/^mock server is cleared$/, async () => {
     await screens[status.screen].clear_logs()
 });
 When (/^get requests$/, async () => {        
-    
-    console.log(await screens[status.screen].get_logs())
+        console.log(await screens[status.screen].get_logs())
 });
+
+When (/^delay (.*) seconds to (.*)$/, async (time,what) => {
+    await browser.pause(1000);
+    await screens[status.screen].delay(what,parseInt(time, 10))
+    await browser.pause(1000);
+});
+When (/^wait (.*) seconds for (.*)$/, async (time,use_less) => {
+    await browser.pause(parseInt(time, 10)*1000);
+})

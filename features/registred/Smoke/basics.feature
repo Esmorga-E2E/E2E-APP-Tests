@@ -33,7 +33,8 @@ Feature: Test registred
 		And events list screen is shown
 		When tap on event
 		Then event details screen is shown
-		And tap on primary button
+		When tap on primary button
+		And wait 3 seconds for snackbar 
 		Then rajarse button content is shown
 
 	@finished
@@ -43,7 +44,8 @@ Feature: Test registred
 		And events list screen is shown
 		When tap on event
 		Then event details screen is shown
-		And tap on primary button
+		When tap on primary button
+		And wait 3 seconds for snackbar 
 		Then apuntarse button content is shown
 
 
@@ -69,7 +71,7 @@ Feature: Test registred
 		When tap on back
 		Then events list screen is shown
 
-			@in_progress
+	@in_progress
 	Scenario: TC - Test in progress
 		Given just opened app
 		And user status is logged in

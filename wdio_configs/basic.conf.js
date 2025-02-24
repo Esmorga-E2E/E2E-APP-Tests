@@ -21,10 +21,11 @@ export const basic_config = {
     reporters: ['cucumberjs-json'],
     cucumberOpts: {
         require: ['./step-definitions/steps.js'],
+        retry: 2,
         backtrace: false,
         requireModule: [],
         dryRun: false,
-        failFast: false,
+        failFast: true,
         format: ['pretty'],
         colors: true,
         snippets: true,
@@ -36,5 +37,6 @@ export const basic_config = {
         ignoreUndefinedDefinitions: false
     },
 
+    
 
 }

@@ -1,6 +1,6 @@
 import Basics from './basic.screen'
 export default class EventsList extends Basics {
-    get_what_to_seek () {
+    get_what_to_seek(reg) {
         switch (browser.capabilities.platformName) {
             case "Android":
             case "android":
