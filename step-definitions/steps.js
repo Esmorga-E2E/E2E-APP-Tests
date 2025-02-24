@@ -190,3 +190,6 @@ When (/^delay (.*) seconds to (.*)$/, async (time,what) => {
     await screens[status.screen].delay(what,parseInt(time, 10))
     await browser.pause(1000);
 });
+When (/^wait (.*) seconds for (.*)$/, async (time,use_less) => {
+    await browser.pause(parseInt(time, 10)*1000);
+})
