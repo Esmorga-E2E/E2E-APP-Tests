@@ -15,4 +15,5 @@ Feature: MOB-14
 		And write Password!1 on field password
 		And write Password!1 on field retry password
 		And tap on primary button
+		And get page
 		

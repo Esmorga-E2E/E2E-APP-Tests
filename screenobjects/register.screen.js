@@ -18,7 +18,8 @@ export default class Register extends Basics {
                 switch (browser.capabilities.platformName) {
                     case "Android":
                     case "android":
-                        return '//android.widget.ScrollView/android.view.View[2]/android.widget.Button'
+                        
+                        return '//android.widget.ScrollView/android.view.View/android.widget.Button'
                                 
                     case "iOS":
                     case "ios":
