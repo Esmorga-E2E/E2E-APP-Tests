@@ -23,7 +23,7 @@ export default class Register extends Basics {
                                 
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeButton[2]'
+                        return '//XCUIElementTypeButton[@name="RegistrationView.RegistrationView"]'
                 }
             }
     }  
@@ -36,7 +36,7 @@ export default class Register extends Basics {
                         return '//android.widget.ScrollView/android.widget.EditText[1]'
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield0"]'
+                        return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield0"][2]'
                 }
 
                 case 'last name':
@@ -46,7 +46,7 @@ export default class Register extends Basics {
                             return '//android.widget.ScrollView/android.widget.EditText[2]'
                         case "iOS":
                         case "ios":
-                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield1"]'
+                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield1"][2]'
                     }
 
             case 'email':
@@ -56,7 +56,7 @@ export default class Register extends Basics {
                         return '//android.widget.ScrollView/android.widget.EditText[3]'
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield2"]'
+                        return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield2"][2]'
                 }
                 case 'password':
                     switch (browser.capabilities.platformName) {
@@ -65,7 +65,7 @@ export default class Register extends Basics {
                             return '//android.widget.ScrollView/android.widget.EditText[4]'
                         case "iOS":
                         case "ios":
-                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield3"]'
+                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield3"][2]'
                         }
                 
                 case 'retry password':
@@ -75,7 +75,7 @@ export default class Register extends Basics {
                             return '//android.widget.ScrollView/android.widget.EditText[5]'
                         case "iOS":
                         case "ios":
-                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield4"]'
+                            return '//XCUIElementTypeStaticText[@name="RegistrationView.textfield4"][2]'
                         }
                 }
     

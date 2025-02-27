@@ -14,6 +14,8 @@ Feature: MOB-14
 		And write prueba@esmorga.canarte.org on field email
 		And write Password!1 on field password
 		And write Password!1 on field retry password
+		And mock post register to response 201
 		And tap on primary button
-		And get page
+		And events list screen is shown
+
 		
