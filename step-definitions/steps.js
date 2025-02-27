@@ -109,7 +109,7 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
         console.log(msg);
         throw err
     }
-    if (await driver.isKeyboardShown()) { 
+    if (browser.isAlertOpen && await driver.isKeyboardShown()) { 
         await driver.hideKeyboard();     
     }
 });
