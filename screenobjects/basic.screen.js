@@ -237,13 +237,13 @@ export default class Basics {
                 }
 
                 case 'post register':
+                    req = {
+                        "method": "POST",
+                        "path":"/v1/account/register",
+                    }
+
                     switch (response) {
-            
                         case "201":
-                            req = {
-                                "method": "POST",
-                                "path":"/v1/account/register",
-                                }
                             res = {
                                 "body":{
                                     "accessToken": "ACCESS_TOKEN",
@@ -258,8 +258,18 @@ export default class Basics {
                             }
                             await addMock(req,res)
                             break
+
+                        case "409":
+                            res = {
+                                "body":{},
+                                "statusCode": 409
+                            }
+                            await addMock(req,res)
+                            break
+            
                     }
-        }
+
+            }
     }
     async delay(what,time){
         switch(what){
@@ -275,5 +285,3 @@ export default class Basics {
     }       
     
 }
-/*
-                                            */
