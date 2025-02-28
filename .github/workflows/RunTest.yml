@@ -48,6 +48,10 @@ jobs:
         APP_URL: ${{inputs.build_url}}
         BROWSERSTACK_USERNAME: ${{secrets.BS_USER}}
         BROWSERSTACK_ACCESS_KEY: ${{secrets.bs_KEY}}
+        MOCK_SERVER_USERNAME: ${{secrets.MOCK_SERVER_USERNAME}}
+        MOCK_SERVER_PASSWORD: ${{secrets.MOCK_SERVER_PASSWORD}}
+
+
 
       run: |
         npm i
