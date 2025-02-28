@@ -25,7 +25,7 @@ export const config = { ...basic_config,
   ],
 
 
-
+    
 capabilities: [{
   'bstack:options': {
     deviceName: 'iPhone 15 Pro Max',

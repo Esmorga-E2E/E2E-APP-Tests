@@ -22,6 +22,7 @@ Feature: MOB-64
 		And mock get my events to response 404
 		And tap on primary button
 		Then user status is logged in
+		And events list screen is shown
 		And mock get my events to response 404
 
 	@android @finished
@@ -36,6 +37,7 @@ Feature: MOB-64
 		And mock get my events to response 404
 		And tap on primary button
 		Then user status is logged in
+		And events list screen is shown
 		And mock get my events to response 404
 
 	@finished

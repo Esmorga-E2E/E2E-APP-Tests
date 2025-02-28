@@ -9,6 +9,7 @@ import EventsList from '../screenobjects/eventsList.screen.js';
 import MyEventsList from '../screenobjects/myEventsList.screen.js';
 import EventDetails from '../screenobjects/eventDetails.screen.js';
 import Login from '../screenobjects/login.screen.js';
+import Register from '../screenobjects/register.screen.js';
 let screenshots=[]
 
 const wellcome_screen = new Wellcome()
@@ -16,13 +17,15 @@ const events_list_screen = new EventsList()
 const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
+const register_screen = new Register()
 
 const screens = {
     wellcome: wellcome_screen,
     'events list': events_list_screen,
     'my events list': my_events_list_screen,
     'event details':event_details_screen,
-    login:login_screen
+    login:login_screen,
+    register:register_screen
 }
 const status={}
 status.screen='wellcome'
@@ -106,7 +109,7 @@ When(/^write (.*) on field (.*)$/, async (text,where) => {
         console.log(msg);
         throw err
     }
-    if (await driver.isKeyboardShown()) { 
+    if (browser.isAlertOpen && await driver.isKeyboardShown()) { 
         await driver.hideKeyboard();     
     }
 });
