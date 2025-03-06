@@ -10,6 +10,7 @@ import MyEventsList from '../screenobjects/myEventsList.screen.js';
 import EventDetails from '../screenobjects/eventDetails.screen.js';
 import Login from '../screenobjects/login.screen.js';
 import Register from '../screenobjects/register.screen.js';
+import RegisterConfirmation from '../screenobjects/registerConfirmation.screen.js';
 let screenshots=[]
 
 const wellcome_screen = new Wellcome()
@@ -18,6 +19,7 @@ const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
 const register_screen = new Register()
+const register_confirmation_screen = new RegisterConfirmation()
 
 const screens = {
     wellcome: wellcome_screen,
@@ -25,7 +27,9 @@ const screens = {
     'my events list': my_events_list_screen,
     'event details':event_details_screen,
     login:login_screen,
-    register:register_screen
+    register:register_screen,
+    "register confirmation": register_confirmation_screen
+
 }
 const status={}
 status.screen='wellcome'

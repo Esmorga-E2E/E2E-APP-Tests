@@ -25,11 +25,7 @@ export default class Register extends Basics {
                     case "ios":
                         return '//XCUIElementTypeButton[@name="RegistrationView.RegistrationView"]'
                 }
-            }
-    }
-//    type="XCUIElementTypeStaticText" value="Email ya ha sido usado"
-get_where_tap_on(where){
-    switch(where){
+            
 
         case 'email already in use':
             switch (browser.capabilities.platformName) {
