@@ -203,3 +203,88 @@ When (/^delay (.*) seconds to (.*)$/, async (time,what) => {
 When (/^wait (.*) seconds for (.*)$/, async (time,use_less) => {
     await browser.pause(parseInt(time, 10)*1000);
 })
+Then ('help', async () => {
+    console.log('\n\n\
+    Help: \n\n\
+    ')
+    await browser.pause(2000);
+//    const pageSource = await driver.getPageSource();
+//    console.log(pageSource);
+
+    const elements = await $$('//android.widget.TextView | //XCUIElementTypeStaticText')
+    let reconstructedXpath=''
+    if ( elements.length > 0 ) { 
+        console.log('\n\tPosible title element:');
+        const name =await elements[0].getAttribute('name').catch(() => null);
+        if (driver.isAndroid) {
+            const classname = await elements[0].getAttribute('class').catch(() => null);
+            reconstructedXpath=`//${classname}[@name="${name}"]`
+            console.log(`\t\t ${name} reconstructed Xpath: ${reconstructedXpath}`)
+
+
+        }else{
+            const type =await elements[0].getAttribute('type').catch(() => null);
+            reconstructedXpath=`//${type}[@name="${name}"]`
+            console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+
+
+        }    
+    }
+    //[@clickable="true"]
+    //[@clickable="true"]
+    //[@clickable="true"]
+    const clickableElements = await $$('//android.widget.Button | //android.widget.TextView | //android.widget.ImageView | //android.view.View | //XCUIElementTypeButton | //XCUIElementTypeLink');
+    if ( clickableElements.length > 0 ) {
+        console.log('\n\tPosible clickable elements:');
+        if (driver.isAndroid) {
+
+            const buttons_with_text = await $$('//android.view.View[@clickable="true" and .//android.widget.Button and .//android.widget.TextView]');
+            for (const button of buttons_with_text) {  
+                const textView = await button.$('.//android.widget.TextView');
+    
+                if (await textView.isExisting()) {
+                    const textContent = await textView.getText(); 
+            
+                    console.log(`\t\t ${textContent} Reconstructed Xpath: //android.view.View[@clickable="true" and .//android.widget.Button and .//android.widget.TextView[@text="${textContent}"]]`);
+                }           
+            }
+
+            const buttons_with_icon = await $$('//android.view.View[@clickable="true" and .//android.widget.Button and .//android.view.View]');
+            for (const button of buttons_with_icon) {
+                const View = await button.$('.//android.view.View[@content-desc and not(@content-desc="null")]');
+    
+                if (await View.isExisting()) {
+                    const viewContent = await View.getAttribute('content-desc')
+                    console.log(`\t\t ${viewContent} Reconstructed Xpath: //android.view.View[@clickable="true" and .//android.widget.Button and .//android.view.View[@content-desc="${viewContent}"]]`);
+                }           
+            }
+
+        }
+        for (const element of clickableElements) {
+            const name = await element.getAttribute('name').catch(() => null);
+            if (driver.isAndroid) {
+                const classname = await element.getAttribute('class').catch(() => null);
+                const text = await element.getAttribute('text').catch(() => null);
+
+                
+                
+/*                
+                if (text != null ){
+                    reconstructedXpath=`//${classname}[@text="${text}"]`
+                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+                }else{
+                    reconstructedXpath=`//${classname}[@name="${name}"]`
+                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+                }
+*/
+            }else{
+                const type =await element.getAttribute('type').catch(() => null);
+                reconstructedXpath=`//${type}[@name="${name}"]`
+                console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+
+            }
+        } 
+    }
+    console.log('\n\n\n\n')
+
+});
