@@ -220,6 +220,7 @@ export default class Basics {
                         await addMock(req,res)
                         break
                     }
+                    break
             case 'get my events':
                 switch (response) {
         
@@ -235,40 +236,40 @@ export default class Basics {
                         await addMock(req,res)
                         break
                 }
+                break
+            case 'post register':
+                req = {
+                    "method": "POST",
+                    "path":"/v1/account/register",
+                }
 
-                case 'post register':
-                    req = {
-                        "method": "POST",
-                        "path":"/v1/account/register",
-                    }
+                switch (response) {
+                    case "201":
+                        res = {
+                            "body":{
+                                "accessToken": "ACCESS_TOKEN",
+                                "refreshToken": "REFRESH_TOKEN",
+                                "ttl": 600,
+                                "profile": {
+                                    "name": "John",
+                                    "lastName": "O'Donnel-Vic",
+                                    "email": "eventslogin01@yopmail.com"
+                                }},
+                            "statusCode": 201
+                        }
+                        await addMock(req,res)
+                        break
 
-                    switch (response) {
-                        case "201":
-                            res = {
-                                "body":{
-                                    "accessToken": "ACCESS_TOKEN",
-                                    "refreshToken": "REFRESH_TOKEN",
-                                    "ttl": 600,
-                                    "profile": {
-                                      "name": "John",
-                                      "lastName": "O'Donnel-Vic",
-                                      "email": "eventslogin01@yopmail.com"
-                                    }},
-                                "statusCode": 201
-                            }
-                            await addMock(req,res)
-                            break
-
-                        case "409":
-                            res = {
-                                "body":{},
-                                "statusCode": 409
-                            }
-                            await addMock(req,res)
-                            break
-            
-                    }
-
+                    case "409":
+                        res = {
+                            "body":{},
+                            "statusCode": 409
+                        }
+                        await addMock(req,res)
+                        break
+        
+                }
+                break
             }
     }
     async delay(what,time){
