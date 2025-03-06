@@ -10,10 +10,5 @@ export default class Wellcome extends Basics {
                 return '//XCUIElementTypeImage[@name="SplashView.welcomeScreen"]'
         }
     }
-    get_where_tap_on(where){
-        switch(where){
-            default:
-                return super.get_where_tap_on(where)
-            }
-    }
+
 }

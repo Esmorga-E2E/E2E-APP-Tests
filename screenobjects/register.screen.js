@@ -13,6 +13,7 @@ export default class Register extends Basics {
 
     }
     get_where_tap_on(where){
+
         switch(where){
             case 'primary button':
                 switch (browser.capabilities.platformName) {
@@ -25,23 +26,21 @@ export default class Register extends Basics {
                     case "ios":
                         return '//XCUIElementTypeButton[@name="RegistrationView.RegistrationView"]'
                 }
-            }
-    }
-//    type="XCUIElementTypeStaticText" value="Email ya ha sido usado"
-get_where_tap_on(where){
-    switch(where){
 
-        case 'email already in use':
-            switch (browser.capabilities.platformName) {
-                case "Android":
-                case "android":
-                    return '//android.widget.TextView[@text="Email already in use"]'
-                case "iOS":
-                case "ios":
-                    return '//XCUIElementTypeStaticText[@value="Email ya ha sido usado"]'
-            }
+            case 'email already in use':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return '//android.widget.TextView[@text="Email already in use"]'
+                    case "iOS":
+                    case "ios":
+                        return '//XCUIElementTypeStaticText[@value="Email ya ha sido usado"]'
+                }
+            default:
+                return super.get_where_tap_on(where)
+        
+        }
     }
-}
 
     get_where_to_write(where){
         switch(where){

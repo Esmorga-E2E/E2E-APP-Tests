@@ -1,5 +1,5 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect, $, browser } from '@wdio/globals'
+import { expect, $, browser, driver } from '@wdio/globals'
 import percyScreenshot from '@percy/appium-app'
 
 
@@ -10,6 +10,7 @@ import MyEventsList from '../screenobjects/myEventsList.screen.js';
 import EventDetails from '../screenobjects/eventDetails.screen.js';
 import Login from '../screenobjects/login.screen.js';
 import Register from '../screenobjects/register.screen.js';
+import Errors from '../screenobjects/errors_screens.js';
 let screenshots=[]
 
 const wellcome_screen = new Wellcome()
@@ -18,6 +19,7 @@ const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
 const register_screen = new Register()
+const errors_screens = new Errors()
 
 const screens = {
     wellcome: wellcome_screen,
@@ -25,7 +27,8 @@ const screens = {
     'my events list': my_events_list_screen,
     'event details':event_details_screen,
     login:login_screen,
-    register:register_screen
+    register:register_screen,
+    errors:errors_screens
 }
 const status={}
 status.screen='wellcome'
@@ -39,10 +42,13 @@ Given('just opened app', async () => {
 
 When(/^tap on (.*)$/, async (where) => {
     const whereTapOn = screens[status.screen].get_where_tap_on(where)
+    console.log(where)
+    console.log(whereTapOn)
     await browser.pause(1000); 
-    let findWhereTapOn = await $(whereTapOn);
+    let findWhereTapOn = await $$(whereTapOn);
+    console.log("Hemos encontrado :"+String(findWhereTapOn.length)+" resultados")
     let retry=5
-    while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
+    while ((findWhereTapOn.length == 0 || !(await findWhereTapOn[0].isDisplayed())) && retry > 0 ) {
         retry=retry-1
         await driver.performActions([{
             type: 'pointer',
@@ -56,7 +62,7 @@ When(/^tap on (.*)$/, async (where) => {
             ]
         }]);
 
-    
+/*
         const elementLocation = await findWhereTapOn.getLocation();
         const elementSize = await findWhereTapOn.getSize();
         const screenHeight = (await driver.getWindowSize()).height;
@@ -80,14 +86,16 @@ When(/^tap on (.*)$/, async (where) => {
                 ]
             }]);
         }            
-
+*/
         await browser.pause(100);       
-        findWhereTapOn = await $(whereTapOn);
+        findWhereTapOn = await $$(whereTapOn);
     }
     try{
-        expect(await $(whereTapOn)).toBeDisplayed
-        findWhereTapOn = await $(whereTapOn);
-        expect(await findWhereTapOn.click())
+        findWhereTapOn = await $$(whereTapOn);
+        expect(findWhereTapOn[0]).toBeDisplayed
+        console.log("Hemos encontrado : "+String(findWhereTapOn.length)+" resultados")
+        console.log(String(findWhereTapOn[0]))
+        expect(await findWhereTapOn[0].click())
         console.log("✅ Tap on "+where)
     }catch(err){
         console.log("❌ Tap on "+where)
@@ -120,7 +128,8 @@ Then(/^(.*) screen is shown$/, async (screen) => {
     const what_to_seek = screens[status.screen].get_what_to_seek(status.registred)
     const msg=("❌ "+screen+" screen is shown")         
     try{
-        await expect(await $(what_to_seek)).toBeDisplayed();
+
+        await expect(await $$(what_to_seek)[0]).toBeDisplayed();
         console.log(msg.replace("❌","✅"));
     }catch(err){
         console.log(msg);
@@ -152,6 +161,94 @@ console.log('\n\n\
     ' + await driver.getPageSource() + '\n\n\
     ')
 });
+
+Then ('help', async () => {
+    console.log('\n\n\
+    Help: \n\n\
+    ')
+    await browser.pause(2000);
+//    const pageSource = await driver.getPageSource();
+//    console.log(pageSource);
+
+    const elements = await $$('//android.widget.TextView | //XCUIElementTypeStaticText')
+    let reconstructedXpath=''
+    if ( elements.length > 0 ) { 
+        console.log('\n\tPosible title element:');
+        const name =await elements[0].getAttribute('name').catch(() => null);
+        if (driver.isAndroid) {
+            const classname = await elements[0].getAttribute('class').catch(() => null);
+            reconstructedXpath=`//${classname}[@name="${name}"]`
+            console.log(`\t\t ${name} reconstructed Xpath: ${reconstructedXpath}`)
+
+
+        }else{
+            const type =await elements[0].getAttribute('type').catch(() => null);
+            reconstructedXpath=`//${type}[@name="${name}"]`
+            console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+
+
+        }    
+    }
+    //[@clickable="true"]
+    //[@clickable="true"]
+    //[@clickable="true"]
+    const clickableElements = await $$('//android.widget.Button | //android.widget.TextView | //android.widget.ImageView | //android.view.View | //XCUIElementTypeButton | //XCUIElementTypeLink');
+    if ( clickableElements.length > 0 ) {
+        console.log('\n\tPosible clickable elements:');
+        if (driver.isAndroid) {
+
+            const buttons_with_text = await $$('//android.view.View[@clickable="true" and .//android.widget.Button and .//android.widget.TextView]');
+            for (const button of buttons_with_text) {  
+                const textView = await button.$('.//android.widget.TextView');
+    
+                if (await textView.isExisting()) {
+                    const textContent = await textView.getText(); 
+            
+                    console.log(`\t\t ${textContent} Reconstructed Xpath: //android.view.View[@clickable="true" and .//android.widget.Button and .//android.widget.TextView[@text="${textContent}"]]`);
+                }           
+            }
+
+            const buttons_with_icon = await $$('//android.view.View[@clickable="true" and .//android.widget.Button and .//android.view.View]');
+            for (const button of buttons_with_icon) {
+                const View = await button.$('.//android.view.View[@content-desc and not(@content-desc="null")]');
+    
+                if (await View.isExisting()) {
+                    const viewContent = await View.getAttribute('content-desc')
+                    console.log(`\t\t ${viewContent} Reconstructed Xpath: //android.view.View[@clickable="true" and .//android.widget.Button and .//android.view.View[@content-desc="${viewContent}"]]`);
+                }           
+            }
+
+        }
+        for (const element of clickableElements) {
+            const name = await element.getAttribute('name').catch(() => null);
+            if (driver.isAndroid) {
+                const classname = await element.getAttribute('class').catch(() => null);
+                const text = await element.getAttribute('text').catch(() => null);
+
+                
+                
+/*                
+                if (text != null ){
+                    reconstructedXpath=`//${classname}[@text="${text}"]`
+                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+                }else{
+                    reconstructedXpath=`//${classname}[@name="${name}"]`
+                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+                }
+*/
+            }else{
+                const type =await element.getAttribute('type').catch(() => null);
+                reconstructedXpath=`//${type}[@name="${name}"]`
+                console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
+
+            }
+        } 
+    }
+    console.log('\n\n\n\n')
+
+});
+
+
 Given(/^user status is (.*)$/, async (user_status) => {
     if (user_status=='logged in'){
         status.registred=true
@@ -196,3 +293,4 @@ When (/^delay (.*) seconds to (.*)$/, async (time,what) => {
 When (/^wait (.*) seconds for (.*)$/, async (time,use_less) => {
     await browser.pause(parseInt(time, 10)*1000);
 })
+

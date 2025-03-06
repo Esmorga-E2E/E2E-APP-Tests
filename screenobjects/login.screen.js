@@ -32,7 +32,8 @@ export default class Login extends Basics {
                         case "ios":
                         return '//XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]//XCUIElementTypeButton[2]'
                 }
-
+            default:
+                return super.get_where_tap_on(where)
             }
     }
     get_where_to_write(where){

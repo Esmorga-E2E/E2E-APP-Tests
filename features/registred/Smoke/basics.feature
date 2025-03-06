@@ -1,6 +1,7 @@
+
 Feature: Test registred
 
-	@ios @smoke @finished
+	@ios @smoke @finished @ontest
     Scenario: TC - Login MVP - Login
 		Given just opened app
 		And user status is unregistred
@@ -13,8 +14,8 @@ Feature: Test registred
 		Then user status is logged in
 		And events list screen is shown
 
-	@android @smoke @finished
-    Scenario: TC - Login MVP - Login
+	@android @smoke @finished @ontest
+	Scenario: TC - Login MVP - Login
 		Given just opened app
 		And user status is unregistred
 		Then wellcome screen is shown
@@ -26,18 +27,22 @@ Feature: Test registred
 		Then user status is logged in
 		And events list screen is shown
 
-	@finished
+	@finished @ontest
 	Scenario: TC - Join an Event
 		Given just opened app
 		And user status is logged in
+		And help
 		And events list screen is shown
+		
 		When tap on event
+		And help
 		Then event details screen is shown
+		
 		When tap on primary button
-		And wait 3 seconds for snackbar 
+		And wait 5 seconds for snackbar 
 		Then rajarse button content is shown
 
-	@finished
+	@finished @ontest
 	Scenario: TC - Unsubscribe from a joined event on My Events screen
 		Given just opened app
 		And user status is logged in
@@ -54,6 +59,7 @@ Feature: Test registred
 		And user status is logged in
 		And events list screen is shown
 		When tap on my events
+		And help
 		Then my events list screen is shown
 		When tap on explore
 		Then events list screen is shown

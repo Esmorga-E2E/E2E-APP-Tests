@@ -19,6 +19,7 @@ const headers = {
 };
 
 async function addMock(httpRequest,httpResponse) {
+
     try {
         await axios.put(`${BASE_URL}/mockserver/expectation`, {
 	"httpRequest": httpRequest,
@@ -140,17 +141,18 @@ export default class Basics {
                 }
             
             case 'back':
-                switch (browser.capabilities.platformName) {
-                    case "Android":
-                    case "android":     
-                        return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button'
+            case 'back button':
+                    switch (browser.capabilities.platformName) {
+                        case "Android":
+                        case "android":     
+                            console.log("try to push back")
+                            return '//android.view.View[@clickable="true" and .//android.widget.Button and .//android.view.View[@content-desc="Back icon"]]'
 
-                    case "iOS":
-                    case "ios":
-                        return '//XCUIElementTypeButton[@name="Izquierda"][1]'
-//                        return '//XCUIElementTypeOther[@name="Izquierda"][1]|//XCUIElementTypeButton[@name="Izquierda"][1]'
-                }
-          
+                        case "iOS":
+                        case "ios":
+                            return '//XCUIElementTypeButton[@name="Izquierda"]'
+            }
+        
             case 'explore':
                 switch (browser.capabilities.platformName) {
                     case "Android":
@@ -219,53 +221,66 @@ export default class Basics {
                                     }
                         await addMock(req,res)
                         break
-                    }
+                }
+                break
+                
             case 'get my events':
                 switch (response) {
         
                     case "404":
+                        
                         req = {
-                                        "method": "GET",
-                                        "path":"/v1/account/events",
-                                        }
+                                "method": "GET",
+                                "path":"/v1/account/events",
+                            }
                         res = {
-                                        "body":{},
-                                        "statusCode": 404
-                                    }
+                                "body":{},
+                                "statusCode": 404
+                            }
                         await addMock(req,res)
                         break
                 }
+                break
 
-                case 'post register':
-                    req = {
-                        "method": "POST",
-                        "path":"/v1/account/register",
-                    }
+            case 'post register':
+                
+                req = {
+                    "method": "POST",
+                    "path":"/v1/account/register",
+                }
 
-                    switch (response) {
-                        case "201":
-                            res = {
-                                "body":{
-                                    "accessToken": "ACCESS_TOKEN",
-                                    "refreshToken": "REFRESH_TOKEN",
-                                    "ttl": 600,
-                                    "profile": {
-                                      "name": "John",
-                                      "lastName": "O'Donnel-Vic",
-                                      "email": "eventslogin01@yopmail.com"
-                                    }},
-                                "statusCode": 201
-                            }
-                            await addMock(req,res)
-                            break
+                switch (response) {
+                    case "201":
+                        res = {
+                            "body":{
+                                "accessToken": "ACCESS_TOKEN",
+                                "refreshToken": "REFRESH_TOKEN",
+                                "ttl": 600,
+                                "profile": {
+                                    "name": "John",
+                                    "lastName": "O'Donnel-Vic",
+                                    "email": "eventslogin01@yopmail.com"
+                                }},
+                            "statusCode": 201
+                        }
+                        await addMock(req,res)
+                        break
 
-                        case "409":
-                            res = {
-                                "body":{},
-                                "statusCode": 409
-                            }
-                            await addMock(req,res)
-                            break
+                    case "409":
+                        res = {
+                            "body":{},
+                            "statusCode": 409
+                        }
+                        await addMock(req,res)
+                        break
+                        
+                    case "404":
+                        res = {
+                            "body":{},
+                            "statusCode": 404
+                        }
+                        await addMock(req,res)
+                        break
             
                     }
 

@@ -19,23 +19,21 @@ export default class EventsList extends Basics {
                         return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View[1]'
                     case "iOS":
                     case "ios":
-                        return '//XCUIElementTypeButton[1]'
+                        return '//XCUIElementTypeButton[@name and not(@name="DashboardView.bottomBar") and not(@name="Izquierda")]'
                 }
-                case 'retry button':
-                    switch (browser.capabilities.platformName) {
-                        case "Android":
-                        case "android":
-                            return '//android.widget.TextView[@text="Retry"]'
-                                    
-                        case "iOS":
-                        case "ios":
-                            return 'accessibility id:Reintentar'
-                        }   
-            
-         
+            case 'retry button':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return '//android.widget.TextView[@text="Retry"]'
+                                
+                    case "iOS":
+                    case "ios":
+                        return 'accessibility id:Reintentar'
+                }
             default:
                 return super.get_where_tap_on(where)
-            
+
         }
     }
 }

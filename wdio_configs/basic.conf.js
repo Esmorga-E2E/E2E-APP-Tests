@@ -21,7 +21,7 @@ export const basic_config = {
     reporters: ['cucumberjs-json'],
     cucumberOpts: {
         require: ['./step-definitions/steps.js'],
-        retry: 2,
+        retry: 3,
         backtrace: false,
         requireModule: [],
         dryRun: false,

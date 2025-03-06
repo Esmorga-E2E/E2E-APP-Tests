@@ -44,7 +44,6 @@ export default class MyEventsList extends Basics {
                     case "ios":
                         return '//XCUIElementTypeStaticText[@name="DashboardView.myEvents" and @label="Cargando eventos…"]'
                 }
-           
             default:
                 return super.get_where_tap_on(where)
         }

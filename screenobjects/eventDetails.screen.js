@@ -63,12 +63,10 @@ export default class EventDetails extends Basics {
                             case "iOS":
                             case "ios":
                                 return 'accessibility id:Identifícate para apuntarte'
-                        }  	
-                                
+                        }
+                    default:
+                        return super.get_where_tap_on(where)
 
-
-            default:
-                return super.get_where_tap_on(where)
             }
 
     }

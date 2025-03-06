@@ -24,13 +24,15 @@ export const config = { ...basic_config,
     ]
   ],
 
+//  deviceName: 'Google Pixel 9',
 
   capabilities: [{
     'bstack:options': {
-      deviceName: 'Google Pixel 9',
+      deviceName: 'Samsung Galaxy S22 Ultra',
       platformName: 'android',
     },
-  
+    "appium:options": {
+    }
   }],
   commonCapabilities: {
     'bstack:options': {
@@ -39,7 +41,8 @@ export const config = { ...basic_config,
       appiumVersion: '2.0',
     },
     "appium:disableWindowAnimation": true,
-    "appium:reduceMotion": true
+    "appium:reduceMotion": true,
+
   },
 
 maxInstances: 1,
