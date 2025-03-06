@@ -25,15 +25,26 @@ export const config = { ...basic_config,
   ],
 
 
-    
-capabilities: [{
+//  deviceName: 'iPhone 15 Pro Max',
+ /*
+ {
   'bstack:options': {
     deviceName: 'iPhone 15 Pro Max',
     platformVersion: '1[678]',
     platformName: 'ios',
   },
 
-}],
+}
+ */   
+capabilities: [{
+  'bstack:options': {
+    deviceName: 'iPhone 14 Pro Max',
+    platformVersion: '1[678]',
+    platformName: 'ios',
+  },
+
+}
+],
 commonCapabilities: {
   'bstack:options': {
     debug: true,
