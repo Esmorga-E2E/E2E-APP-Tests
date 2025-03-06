@@ -216,11 +216,16 @@ Then ('help', async () => {
     if ( elements.length > 0 ) { 
         console.log('\n\tPosible title element:');
         const name =await elements[0].getAttribute('name').catch(() => null);
-        if (driver.isAndroid) {
+        if (driver.isAndroid && elements[0].getText()!="null") {
             const classname = await elements[0].getAttribute('class').catch(() => null);
-            reconstructedXpath=`//${classname}[@name="${name}"]`
-            console.log(`\t\t ${name} reconstructed Xpath: ${reconstructedXpath}`)
-
+            const text = await elements[0].getAttribute('text').catch(() => null);
+            reconstructedXpath=`//${classname}[@text="${text}"]`
+            console.log(`\t\t ${text} reconstructed Xpath: ${reconstructedXpath}`)
+        }else if (driver.isAndroid) {
+                const classname = await elements[0].getAttribute('class').catch(() => null);
+                reconstructedXpath=`//${classname}[@name="${name}"]`
+                console.log(`\t\t ${name} reconstructed Xpath: ${reconstructedXpath}`)
+    
 
         }else{
             const type =await elements[0].getAttribute('type').catch(() => null);
