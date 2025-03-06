@@ -10,6 +10,8 @@ import MyEventsList from '../screenobjects/myEventsList.screen.js';
 import EventDetails from '../screenobjects/eventDetails.screen.js';
 import Login from '../screenobjects/login.screen.js';
 import Register from '../screenobjects/register.screen.js';
+import RegisterConfirmation from '../screenobjects/registerConfirmation.screen.js';
+import mailApp from '../screenobjects/mailApp.screen.js';
 import Errors from '../screenobjects/errors_screens.js';
 let screenshots=[]
 
@@ -19,6 +21,8 @@ const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
 const register_screen = new Register()
+const register_confirmation_screen = new RegisterConfirmation()
+const mail_app_screen = new mailApp()
 const errors_screens = new Errors()
 
 const screens = {
@@ -28,6 +32,9 @@ const screens = {
     'event details':event_details_screen,
     login:login_screen,
     register:register_screen,
+    "register confirmation": register_confirmation_screen,
+    "mail app": mail_app_screen
+,
     errors:errors_screens
 }
 const status={}

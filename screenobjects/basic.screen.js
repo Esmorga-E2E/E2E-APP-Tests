@@ -221,9 +221,8 @@ export default class Basics {
                                     }
                         await addMock(req,res)
                         break
-                }
-                break
-                
+                    }
+                    break
             case 'get my events':
                 switch (response) {
         
@@ -241,9 +240,7 @@ export default class Basics {
                         break
                 }
                 break
-
             case 'post register':
-                
                 req = {
                     "method": "POST",
                     "path":"/v1/account/register",
@@ -273,17 +270,9 @@ export default class Basics {
                         }
                         await addMock(req,res)
                         break
-                        
-                    case "404":
-                        res = {
-                            "body":{},
-                            "statusCode": 404
-                        }
-                        await addMock(req,res)
-                        break
-            
-                    }
-
+        
+                }
+                break
             }
     }
     async delay(what,time){
