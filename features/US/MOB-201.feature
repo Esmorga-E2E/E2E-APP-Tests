@@ -18,5 +18,5 @@ Feature: MOB-201
 		And tap on primary button
 		Then register confirmation screen is shown
 		When tap on primary button
-		Then get page
+		Then mail app screen is shown
 
