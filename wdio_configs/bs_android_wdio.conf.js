@@ -24,11 +24,15 @@ export const config = { ...basic_config,
     ]
   ],
 
-
+//      deviceName: 'Google Pixel 9',
   capabilities: [{
     'bstack:options': {
-      deviceName: 'Google Pixel 9',
+
+      deviceName: 'Samsung Galaxy S10',
       platformName: 'android',
+      networkLogs : true,
+      video: true,
+      interactiveDebugging : true,
     },
   
   }],
@@ -37,6 +41,7 @@ export const config = { ...basic_config,
       debug: true,
       networkLogs: true,
       appiumVersion: '2.0',
+      "networkLogs" : true,
     },
     "appium:disableWindowAnimation": true,
     "appium:reduceMotion": true
