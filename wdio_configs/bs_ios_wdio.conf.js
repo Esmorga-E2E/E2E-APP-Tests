@@ -31,6 +31,7 @@ capabilities: [{
     deviceName: 'iPhone 14 Pro Max',
     platformVersion: '1[678]',
     platformName: 'ios',
+    networkLogs : true,
   },
 
 }],
@@ -40,7 +41,8 @@ commonCapabilities: {
     networkLogs: true,
     appiumVersion: '2.0',
     "appium:disableWindowAnimation": true,
-    "appium:reduceMotion": true
+    "appium:reduceMotion": true,
+    
   }
 },
 
