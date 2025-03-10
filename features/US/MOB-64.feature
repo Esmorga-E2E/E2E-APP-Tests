@@ -10,7 +10,7 @@ Feature: MOB-64
 		When tap on my events
 		Then my events list screen is shown
 
-	@ios @finished
+	@ios 
     Scenario: TC - Login
 		Given just opened app
 		And user status is unregistred
@@ -25,7 +25,7 @@ Feature: MOB-64
 		And events list screen is shown
 		And mock get my events to response 404
 
-	@android @finished
+	@android 
     Scenario: TC - Login
 		Given just opened app
 		And user status is unregistred
@@ -40,7 +40,7 @@ Feature: MOB-64
 		And events list screen is shown
 		And mock get my events to response 404
 
-	@finished
+	
     Scenario: MOB-TC-153: TC - My Events Screen - Handle loading screen when retrieving events
 		Given just opened app
 		And user status is registred

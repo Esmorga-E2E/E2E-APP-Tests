@@ -1,4 +1,4 @@
-Feature: Test registred
+Feature:  Unhappy when registred
 
 	@ios @smoke @finished
     Scenario: TC - Login MVP - Login

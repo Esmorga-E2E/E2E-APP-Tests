@@ -38,6 +38,8 @@ const status={}
 status.screen='wellcome'
 status.registred=false
 
+
+
 Given('just opened app', async () => {
     console.log("Open APP ")
     await driver.pause(1000);
@@ -51,17 +53,7 @@ When(/^tap on (.*)$/, async (where) => {
     let retry=5
     while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
         retry=retry-1
-        await driver.performActions([{
-            type: 'pointer',
-            id: 'example',
-            parameters: { pointerType: 'touch' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                { type: 'pointerUp', button: 0 }
-            ]
-        }]);
+        await screens[status.screen].move_down()
 
     
         const elementLocation = await findWhereTapOn.getLocation();
@@ -75,17 +67,7 @@ When(/^tap on (.*)$/, async (where) => {
 
         if (isNearBottom) {
             console.log('The button is outof screen bottom');
-            await driver.performActions([{
-                type: 'pointer',
-                id: 'example',
-                parameters: { pointerType: 'touch' },
-                actions: [
-                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                    { type: 'pointerDown', button: 0 },
-                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                    { type: 'pointerUp', button: 0 }
-                ]
-            }]);
+            await screens[status.screen].move_down()
         }            
 
         await browser.pause(100);       

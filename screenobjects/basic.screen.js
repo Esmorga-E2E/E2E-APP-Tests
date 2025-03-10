@@ -80,6 +80,19 @@ async function clearAllLogs() {
 }
 
 export default class Basics {
+    async move_down(){
+        await driver.performActions([{
+            type: 'pointer',
+            id: 'example',
+            parameters: { pointerType: 'touch' },
+            actions: [
+                { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
+                { type: 'pointerDown', button: 0 },
+                { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
+                { type: 'pointerUp', button: 0 }
+            ]
+        }]);
+    }
     get_what_snackbar_seek(snackbar){
         switch(snackbar){
             case 'joined':
@@ -196,12 +209,20 @@ export default class Basics {
     async mock(what,response){
         switch(what){
             case 'get events':
+                req = {
+                    "method": "GET",
+                    "path":'/v1/events',
+                    }
                 switch (response) {
+                
+                    case "200 without events":
+                        res = {
+                                        "body":{"totalEvents":0,"events":[]},
+                                        "statusCode": 200
+                                    }
+                        await addMock(req,res)
+                        break
                     case "200 with events":
-                        req = {
-                                        "method": "GET",
-                                        "path":'/v1/events',
-                                        }
                         res = {
                                         "body":{"totalEvents":1,"events":[{"eventId":"66ffd9624bd73c0dbe7e2d6d","eventName":"lololo","eventDate":"2025-03-08T10:05:30.915Z","description":"Join us for an unforgettable celebration as we dance into the apocalypse.","eventType":"Party","imageUrl":"image.url","location":{"lat":43.35525182148881,"long":-8.41937931298951,"name":"A Coruña"},"tags":["DANCE","MUSIC"]}]},
                                         "statusCode": 200
@@ -209,10 +230,6 @@ export default class Basics {
                         await addMock(req,res)
                         break
                     case "404":
-                        req = {
-                                        "method": "GET",
-                                        "path":"/v1/events",
-                                        }
                         res = {
                                         "body":{},
                                         "statusCode": 404
