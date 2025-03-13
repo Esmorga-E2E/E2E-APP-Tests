@@ -1,12 +1,20 @@
-@test
 Feature: Test
 
-
-    Scenario: TC - Mock-Server - Check
+	Scenario: TC - Firs open unregistred
 		Given mock server is cleared
-		And just opened app
+		Given just opened app
 		And user status is unregistred
 		And wellcome screen is shown
 		When tap on secondary button
-		And events list screen is shown
+		Then events list screen is shown
+
+	Scenario: TC - ReOpen
+		Given just opened app
+		And user status is unregistred
+		And wellcome screen is shown
+		When tap on secondary button
+		Then events list screen is shown
+
+
+ #		Given mock server is cleared
 #		When get requests
