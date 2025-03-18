@@ -118,7 +118,7 @@ Then(/^(.*) screen is shown$/, async (screen) => {
     
 
 
-    const testIdentifier = `${status.screen} ${status.user_status}`
+    const testIdentifier = `${status.screen}, registred:${status.registred}`
     if (!screenshots.includes(testIdentifier)) {
         console.log("\tChecking if capture is required" )
         await percyScreenshot(testIdentifier);
