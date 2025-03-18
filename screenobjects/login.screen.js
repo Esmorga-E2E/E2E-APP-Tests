@@ -6,7 +6,7 @@ export default class Login extends Basics {
             case "android":
                 return '//android.widget.ImageView[@content-desc="Login header"]'
             case "iOS":
-                        case "ios":
+            case "ios":
                 return '//XCUIElementTypeImage[@name="login-header"]'
         }
     }
@@ -18,7 +18,7 @@ export default class Login extends Basics {
                     case "android":
                         return '//android.widget.ScrollView/android.view.View[1]/android.widget.Button'
                     case "iOS":
-                        case "ios":
+                    case "ios":
                         return '//XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]//XCUIElementTypeButton[1]'
 
                 }

@@ -38,6 +38,8 @@ const status={}
 status.screen='wellcome'
 status.registred=false
 
+
+
 Given('just opened app', async () => {
     console.log("Open APP ")
     await driver.pause(1000);
@@ -51,17 +53,7 @@ When(/^tap on (.*)$/, async (where) => {
     let retry=5
     while (!(await findWhereTapOn.isDisplayed()) && retry > 0 ) {
         retry=retry-1
-        await driver.performActions([{
-            type: 'pointer',
-            id: 'example',
-            parameters: { pointerType: 'touch' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                { type: 'pointerUp', button: 0 }
-            ]
-        }]);
+        await screens[status.screen].move_down()
 
     
         const elementLocation = await findWhereTapOn.getLocation();
@@ -75,17 +67,7 @@ When(/^tap on (.*)$/, async (where) => {
 
         if (isNearBottom) {
             console.log('The button is outof screen bottom');
-            await driver.performActions([{
-                type: 'pointer',
-                id: 'example',
-                parameters: { pointerType: 'touch' },
-                actions: [
-                    { type: 'pointerMove', duration: 0, x: 500, y: 1500 },
-                    { type: 'pointerDown', button: 0 },
-                    { type: 'pointerMove', duration: 1000, x: 500, y: 500 },
-                    { type: 'pointerUp', button: 0 }
-                ]
-            }]);
+            await screens[status.screen].move_down()
         }            
 
         await browser.pause(100);       
@@ -203,6 +185,8 @@ When (/^delay (.*) seconds to (.*)$/, async (time,what) => {
 When (/^wait (.*) seconds for (.*)$/, async (time,use_less) => {
     await browser.pause(parseInt(time, 10)*1000);
 })
+
+//HELP on development
 Then ('help', async () => {
     console.log('\n\n\
     Help: \n\n\
@@ -235,9 +219,7 @@ Then ('help', async () => {
 
         }    
     }
-    //[@clickable="true"]
-    //[@clickable="true"]
-    //[@clickable="true"]
+
     const clickableElements = await $$('//android.widget.Button | //android.widget.TextView | //android.widget.ImageView | //android.view.View | //XCUIElementTypeButton | //XCUIElementTypeLink');
     if ( clickableElements.length > 0 ) {
         console.log('\n\tPosible clickable elements:');
@@ -272,16 +254,6 @@ Then ('help', async () => {
                 const text = await element.getAttribute('text').catch(() => null);
 
                 
-                
-/*                
-                if (text != null ){
-                    reconstructedXpath=`//${classname}[@text="${text}"]`
-                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
-                }else{
-                    reconstructedXpath=`//${classname}[@name="${name}"]`
-                    console.log(`\t\t ${name} Reconstructed Xpath: ${reconstructedXpath}`)
-                }
-*/
             }else{
                 const type =await element.getAttribute('type').catch(() => null);
                 reconstructedXpath=`//${type}[@name="${name}"]`
@@ -293,3 +265,28 @@ Then ('help', async () => {
     console.log('\n\n\n\n')
 
 });
+
+
+
+// Network Testing
+When('enable airplane mode', async () => {
+        const msg=("❌ enable airplane mode")         
+    try{
+        status.currentConnection = await driver.getNetworkConnection();
+        await driver.setNetworkConnection(1); 
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+})
+When('disable airplane mode', async () => {
+    const msg=("❌ disable airplane mode")         
+    try{
+        await driver.setNetworkConnection(status.currentConnection)
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+})

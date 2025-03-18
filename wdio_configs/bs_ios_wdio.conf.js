@@ -51,7 +51,7 @@ maxInstances: 1,
 
 
 beforeScenario: async function (world, context) {
-  
+  console.log(`Starting Scenario: ${world.pickle.name}`);
   const appState = await driver.queryAppState(appPackage);
   if (appState !== 4) {
     await driver.activateApp(

@@ -19,7 +19,7 @@ export default class EventDetails extends Basics {
                 switch (browser.capabilities.platformName) {
                     case "Android":
                     case "android":
-                        return '//android.widget.ScrollView/android.view.View[2]/android.widget.Button'
+                        return '//android.view.View[@clickable="true" and .//android.widget.Button and .//android.widget.TextView[@text="Sign in to sign up" or @text="Leave Event" or @text="Join Event"]]'
                                 
                     case "iOS":
                     case "ios":

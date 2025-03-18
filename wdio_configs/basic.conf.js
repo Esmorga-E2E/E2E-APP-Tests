@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
+
+
 export const basic_config = {
     specs: [
         '../features/**/*.feature'
@@ -35,8 +37,7 @@ export const basic_config = {
         tagExpression: '',
         timeout: 60000,
         ignoreUndefinedDefinitions: false
-    },
+    }
 
-    
 
 }
