@@ -9,5 +9,6 @@ Feature: MOB-49
 		Then login screen is shown
 		When tap on primary button
 		Then login screen is shown
-		When tap on secondary button
-		Then reset password screen is shown
+		When tap on Forgot your password text
+		Then help
+		Then recover your password screen is shown

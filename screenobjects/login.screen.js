@@ -33,7 +33,18 @@ export default class Login extends Basics {
                         return '//XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]//XCUIElementTypeButton[2]'
                 }
 
+            case 'Forgot your password text':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return '//android.widget.TextView[@text="Forgot your password?"]'
+                    case "iOS":
+                    case "ios":
+                        return '//XCUIElementTypeStaticText[@name="Forgot your password?"]'
+                }
+
             }
+            
     }
     get_where_to_write(where){
         switch(where){
