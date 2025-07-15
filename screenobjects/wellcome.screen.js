@@ -11,9 +11,19 @@ export default class Wellcome extends Basics {
         }
     }
     get_where_tap_on(where){
-        switch(where){
+        switch (where) {
+            case 'unique device identifier':
+                switch (browser.capabilities.platformName) {
+                    case "Android":
+                    case "android":
+                        return 'accessibility id:id_device'
+                    case "iOS":
+                    case "ios":
+                        return '???'
+                }   
+        
             default:
                 return super.get_where_tap_on(where)
-            }
+        }
     }
 }

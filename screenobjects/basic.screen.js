@@ -170,7 +170,7 @@ export default class Basics {
                     case "android":
                         return '//androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[1]'
                                 
-                        case "iOS":
+                    case "iOS":
                     case "ios":
                         return '//XCUIElementTypeButton[@name="DashboardView.bottomBar"][1] | //XCUIElementTypeButton[@name="SplashView.dashboard"][1]'
                 }
