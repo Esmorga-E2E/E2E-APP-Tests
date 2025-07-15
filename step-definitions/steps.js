@@ -12,6 +12,7 @@ import Login from '../screenobjects/login.screen.js';
 import Register from '../screenobjects/register.screen.js';
 import RegisterConfirmation from '../screenobjects/registerConfirmation.screen.js';
 import mailApp from '../screenobjects/mailApp.screen.js';
+import PasswordRecovery from '../screenobjects/passwordRecovery.js';
 let screenshots=[]
 
 const wellcome_screen = new Wellcome()
@@ -19,6 +20,7 @@ const events_list_screen = new EventsList()
 const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
+const password_recovery_screen = new PasswordRecovery()
 const register_screen = new Register()
 const register_confirmation_screen = new RegisterConfirmation()
 const mail_app_screen = new mailApp()
@@ -31,7 +33,8 @@ const screens = {
     login:login_screen,
     register:register_screen,
     "register confirmation": register_confirmation_screen,
-    "mail app": mail_app_screen
+    "mail app": mail_app_screen,
+    "recover your password": password_recovery_screen
 
 }
 const status={}
@@ -161,6 +164,23 @@ Then (/^(.*) content is shown$/, async (what) => {
         console.log(msg);
         throw err
     }
+});
+
+Then (/^store (.*) as variable (.*)$/, async (what,where) => {
+    await browser.pause(3000);
+    const What = screens[status.screen].get_where_tap_on(what)
+    const msg=("❌ "+what+" content able to store as variable "+where)         
+    try{
+        await expect(await $(What)).toBeDisplayed();
+        status[where] = What.text
+
+        console.log(msg.replace("❌","✅"));
+    }catch(err){
+        console.log(msg);
+        throw err
+    }
+
+           
 });
 
 
