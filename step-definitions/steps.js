@@ -12,7 +12,7 @@ import Login from '../screenobjects/login.screen.js';
 import Register from '../screenobjects/register.screen.js';
 import RegisterConfirmation from '../screenobjects/registerConfirmation.screen.js';
 import mailApp from '../screenobjects/mailApp.screen.js';
-import PasswordRecovery from '../screenobjects/passwordRecovery.js';
+//import PasswordRecovery from '../screenobjects/passwordRecovery.js';
 let screenshots=[]
 
 const wellcome_screen = new Wellcome()
@@ -20,7 +20,7 @@ const events_list_screen = new EventsList()
 const my_events_list_screen = new MyEventsList()
 const event_details_screen = new EventDetails()
 const login_screen = new Login()
-const password_recovery_screen = new PasswordRecovery()
+//const password_recovery_screen = new PasswordRecovery()
 const register_screen = new Register()
 const register_confirmation_screen = new RegisterConfirmation()
 const mail_app_screen = new mailApp()
@@ -34,7 +34,7 @@ const screens = {
     register:register_screen,
     "register confirmation": register_confirmation_screen,
     "mail app": mail_app_screen,
-    "recover your password": password_recovery_screen
+    //"recover your password": password_recovery_screen
 
 }
 const status={}
